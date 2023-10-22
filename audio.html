@@ -1,0 +1,108 @@
+
+<html lang="en">
+    <head>
+        <script type="text/javascript">var _sf_startpt=(new Date()).getTime();</script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/7.0.0/mediaelementplayer.min.css">
+        <style>
+            #container {
+                padding: 0 20px 50px;
+            }
+            .error {
+                color: red;
+            }
+            a {
+                word-wrap: break-word;
+            }
+            
+            #player2-container .mejs__time-buffering, #player2-container .mejs__time-current, #player2-container .mejs__time-handle,
+            #player2-container .mejs__time-loaded, #player2-container .mejs__time-marker, player2-container .mejs__time-total {
+                height: 2px;
+            }
+
+            #player2-container .mejs__time-rail{
+                display: none;
+            }
+
+            #player2-container .mejs__time-total {
+                margin-top: 9px;
+            }
+
+            #player2-container .mejs__duration {
+            display: none;
+            }
+
+            #player2-container .mejs__time-handle {
+                left: -10px;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: #ffffff;
+                top: -5px;
+                cursor: pointer;
+                display: block;
+                position: absolute;
+                z-index: 1;
+                border: none;
+            }
+        </style>
+
+        <title>Listening to: CYUL Tower | Montreal, Quebec, Canada | LiveATC.net</title><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><meta name="Description" content="CYUL Tower,airport">
+    </head>
+
+
+    <body>
+        <table colspan="2">
+            <tr>
+                <td>
+                    <h1 style="font-size: 12pt; color: black; font-family: Helvetica, sans-serif">You are listening to: <br>CYUL Tower - Montreal, Quebec, Canada</h1><font face="Monospace,Courier" size="-1">CYUL 142300Z 29005KT 15SM FEW060 SCT080 12/07 A2970 RMK SC2AC1 SLP062</font>
+                    <table colspan="2">
+                        <tr>
+                            <td>
+                                <br>
+                                <div id="container">
+                                    <div class="players" id="player2-container">
+                                        <div class="media-wrapper">
+                                            <audio id="player2" crossorigin="anonymous" preload="metadata" src="https://s1-lhr.liveatc.net/cyul_twr2?nocache=2023101500292946618" type="audio/mp3" controls="controls" autoplay="true">
+                                            </audio>
+                                        </div>
+                                    </div>
+                                    <div id="my-peak-meter" style="width: 18em; height: 3em; margin: 1em 0;">
+                                    </div>
+
+                                    <script src="./js/web-audio-peak-meter-3.1.0.min.js"></script>
+                                    <script>
+                                        var myMeterElement = document.getElementById('my-peak-meter');
+                                        var myAudio = document.getElementById('player2');
+                                        var audioCtx = new window.AudioContext();
+                                        var sourceNode = audioCtx.createMediaElementSource(myAudio);
+                                        sourceNode.connect(audioCtx.destination);
+                                        var meterNode = webAudioPeakMeter.createMeterNode(sourceNode, audioCtx);
+                                        webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
+                                        myAudio.addEventListener('play', function() {
+                                            audioCtx.resume();
+                                        });
+                                    </script>
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/7.0.0/mediaelement-and-player.min.js"></script>
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/7.0.0/demo.min.js"></script>
+                                    <strong>
+                                        <font color="red" size = "-1">
+                                        If stream doesn't start automatically press the play button
+                                        <br>
+                                        If stream stops then <a href="javascript:history.go(0)">reload</a> player then press play
+                                    </strong>
+                                    <br><br>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <select style="display: none;" id="lang">
+            <option selected value="en">en</option>
+        </select>
+    </body>
+</html>
