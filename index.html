@@ -78,7 +78,7 @@
                                                 <div id="container">
                                                     <div class="players" id="player2-container">
                                                         <div class="media-wrapper">
-                                                            <audio id="player2" crossorigin="anonymous" preload="metadata" src="https://s1-lhr.liveatc.net/cyul_twr2?nocache=2023101500292946618" type="audio/mp3" controls="controls" autoplay="true">
+                                                            <audio id="player2" crossorigin="anonymous" preload="metadata" src="https://s1-bos.liveatc.net/cyul_twr2?nocache=2023111801581317405" type="audio/mp3" controls="controls" autoplay="true">
                                                             </audio>
                                                         </div>
                                                     </div>
@@ -135,11 +135,22 @@
                                 <span class="tableauxvols-automaticupdate-label">
                                     Last <strong>update </strong>:&nbsp;      
                                 </span>
-                                <span class="automaticupdate-label">calculating</span><a href="#" class="tableauvols-automaticupdate-trigger" style="cursor: pointer;"><span id="canvasloader-container-tTlE9tm1ge" style="display: none;" class="canvasloader-wrapper"><div id="canvasLoader-tTlE9tm18h" style="display: block;"><canvas width="16" height="16"></canvas><canvas width="16" height="16" style="display: none;"></canvas></div></span><span class="refresher" style="display: block;"><span class="visually-hidden">Refresh flight information</span></span></a>
+                                <span class="automaticupdate-label">calculating</span>
+                                <a class="tableauvols-automaticupdate-trigger" style="cursor: pointer;">
+                                    <span id="canvasloader-container-tTlE9tm1ge" style="display: none;" class="canvasloader-wrapper">
+                                        <div id="canvasLoader-tTlE9tm18h" style="display: block;">
+                                            <canvas width="16" height="16"></canvas>
+                                            <canvas width="16" height="16" style="display: none;"></canvas>
+                                        </div>
+                                    </span>
+                                    <span class="refresher" style="display: block;">
+                                        <span class="visually-hidden">Refresh flight information</span>
+                                    </span>
+                                </a>
                             </div>
                     
-                            <a href="/en/flights/arrivals" class="tableauxvols-showall"><span class="icon icon-arrow-left" aria-hidden="true"></span><span>See arrivals</span></a>
-                            <a href="/en/flights/departures" class="tableauxvols-showall"><span class="icon icon-arrow-left" aria-hidden="true"></span><span>See departures</span></a>
+                            <a id="tableauvols-show-arrivals" class="tableauxvols-showall"><span class="icon icon-arrow-left" aria-hidden="true"></span><span>See arrivals</span></a>
+                            <a id="tableauvols-show-departures" class="tableauxvols-showall"><span class="icon icon-arrow-left" aria-hidden="true"></span><span>See departures</span></a>
                         </div>
                 
                         <div class="flightsRefreshAlertWrapper" aria-live="polite"></div>
@@ -153,8 +164,8 @@
                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper tableauvols-wrapper">
                             <div class="equalize tableauvols-filters enhance enhance-equalize-applied" data-enhance="equalize">
                                 <div class="equalize-row">
-                                    <a href="#dateAnchor1" data-anchor="#dateAnchor1" id="analytics_departure_today" class="btn-primary btn-action btn-tabulation equalize-cell dark" style="width: 50%;"><span class="tableauvols-filters-day">today</span><span class="tableauvols-filters-date">(oct. 21)</span></a>
-                                    <a href="#dateAnchor2" data-anchor="#dateAnchor2" id="analytics_departure_tomorrow" class="btn-primary btn-action btn-tabulation equalize-cell last" style="width: 50%;"><span class="tableauvols-filters-day">tomorrow</span><span class="tableauvols-filters-date">(oct. 22)</span></a>
+                                    <a data-anchor="#dateAnchor1" id="analytics_departure_today" class="btn-primary btn-action btn-tabulation equalize-cell dark" style="width: 50%;"><span class="tableauvols-filters-day">today</span><span class="tableauvols-filters-date">(oct. 21)</span></a>
+                                    <a data-anchor="#dateAnchor2" id="analytics_departure_tomorrow" class="btn-primary btn-action btn-tabulation equalize-cell last" style="width: 50%;"><span class="tableauvols-filters-day">tomorrow</span><span class="tableauvols-filters-date">(oct. 22)</span></a>
                                 </div>
                             </div>
                             <div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix searchDataTables-wrapper clearfix"> <!-- searchDatatables-wrapper-mobile-->
