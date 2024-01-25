@@ -3,13 +3,17 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>AutoWebcam - YUL</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+        <script src="cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
         <script type="text/javascript">var _sf_startpt=(new Date()).getTime();</script>
         <script src="./js/main.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <link rel="stylesheet" href="cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/7.0.0/mediaelementplayer.min.css">
         <link rel="stylesheet" href="./css/stylesYUL.css">
         <style>
@@ -53,9 +57,7 @@
         </style>
     </head>
     <body style="background-color: #161616;">
-        
         <div class="container" style="width: 100%; max-width: 100%; margin-left: 0%; margin-right: 0%;">
-
             <div class="row">
                 <div class="col-md-10 col-sm-12">
                     <div id="webcam" class="text-center" style="max-width: 100%; margin: 1%;">
@@ -78,7 +80,7 @@
                                                 <div id="container">
                                                     <div class="players" id="player2-container">
                                                         <div class="media-wrapper">
-                                                            <audio id="player2" crossorigin="anonymous" preload="metadata" src="https://s1-lhr.liveatc.net/cyul_twr2?nocache=2023101500292946618" type="audio/mp3" controls="controls" autoplay="true">
+                                                            <audio id="player2" crossorigin="anonymous" preload="metadata" src="https://s1-bos.liveatc.net/cyul_twr2" type="audio/mp3" controls="controls" autoplay="true">
                                                             </audio>
                                                         </div>
                                                     </div>
@@ -135,32 +137,42 @@
                                 <span class="tableauxvols-automaticupdate-label">
                                     Last <strong>update </strong>:&nbsp;      
                                 </span>
-                                <span class="automaticupdate-label">calculating</span><a href="#" class="tableauvols-automaticupdate-trigger" style="cursor: pointer;"><span id="canvasloader-container-tTlE9tm1ge" style="display: none;" class="canvasloader-wrapper"><div id="canvasLoader-tTlE9tm18h" style="display: block;"><canvas width="16" height="16"></canvas><canvas width="16" height="16" style="display: none;"></canvas></div></span><span class="refresher" style="display: block;"><span class="visually-hidden">Refresh flight information</span></span></a>
+                                <span class="automaticupdate-label">calculating</span>
+                                <a class="tableauvols-automaticupdate-trigger" style="cursor: pointer;">
+                                    <span id="canvasloader-container-tTlE9tm1ge" style="display: none;" class="canvasloader-wrapper">
+                                        <div id="canvasLoader-tTlE9tm18h" style="display: block;">
+                                            <canvas width="16" height="16"></canvas>
+                                            <canvas width="16" height="16" style="display: none;"></canvas>
+                                        </div>
+                                    </span>
+                                    <span class="refresher" style="display: block;">
+                                        <span class="visually-hidden">Refresh flight information</span>
+                                    </span>
+                                </a>
                             </div>
                     
-                            <a href="/en/flights/arrivals" class="tableauxvols-showall"><span class="icon icon-arrow-left" aria-hidden="true"></span><span>See arrivals</span></a>
-                            <a href="/en/flights/departures" class="tableauxvols-showall"><span class="icon icon-arrow-left" aria-hidden="true"></span><span>See departures</span></a>
+                            <a id="tableauvols-show-arrivals" class="tableauxvols-showall"><span class="icon icon-arrow-left" aria-hidden="true"></span><span>See arrivals</span></a>
+                            <a id="tableauvols-show-departures" class="tableauxvols-showall"><span class="icon icon-arrow-left" aria-hidden="true"></span><span>See departures</span></a>
                         </div>
                 
                         <div class="flightsRefreshAlertWrapper" aria-live="polite"></div>
                         <div class="flightsRefreshAlert" style="display: block;" hidden><span class="icon icon-rafraichissement"></span><a href="#">New information available</a></div>
                         <div class="warningnbox hide" style="opacity: 0; display: none;"><span class="icon icon-attention"></span><span class="warningbox-label"></span></div>
                 
-                        
                         <!-- tableauvols-filters-mobile
                         neutral -->
                 
                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper tableauvols-wrapper">
                             <div class="equalize tableauvols-filters enhance enhance-equalize-applied" data-enhance="equalize">
                                 <div class="equalize-row">
-                                    <a href="#dateAnchor1" data-anchor="#dateAnchor1" id="analytics_departure_today" class="btn-primary btn-action btn-tabulation equalize-cell dark" style="width: 50%;"><span class="tableauvols-filters-day">today</span><span class="tableauvols-filters-date">(oct. 21)</span></a>
-                                    <a href="#dateAnchor2" data-anchor="#dateAnchor2" id="analytics_departure_tomorrow" class="btn-primary btn-action btn-tabulation equalize-cell last" style="width: 50%;"><span class="tableauvols-filters-day">tomorrow</span><span class="tableauvols-filters-date">(oct. 22)</span></a>
+                                    <a data-anchor="#dateAnchor1" id="analytics_departure_today" class="btn-primary btn-action btn-tabulation equalize-cell dark" style="width: 50%;"><span class="tableauvols-filters-day">today</span><span class="tableauvols-filters-date">(oct. 21)</span></a>
+                                    <a data-anchor="#dateAnchor2" id="analytics_departure_tomorrow" class="btn-primary btn-action btn-tabulation equalize-cell last" style="width: 50%;"><span class="tableauvols-filters-day">tomorrow</span><span class="tableauvols-filters-date">(oct. 22)</span></a>
                                 </div>
                             </div>
-                            <div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix searchDataTables-wrapper clearfix"> <!-- searchDatatables-wrapper-mobile-->
+                            <div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corn**er-tr ui-helper-clearfix searchDataTables-wrapper clearfix"> <!-- searchDatatables-wrapper-mobile-->
                                 <div class="dataTables_filter searchDataTables" id="DataTables_Table_0_filter">
                                     <label for="search" class="searchLabel">
-                                        <input type="text" id="search" aria-controls="DataTables_Table_0" placeholder="Search for flights ...">
+                                        <input type="text" id="search" placeholder="Search for flights ...">
                                         <span class="visually-hidden">Search for flights ...</span>
                                         <button class="fakebutton icon search" aria-hidden="true" aria-label="Search" disabled="disabled"></button>
                                     </label>
@@ -169,42 +181,42 @@
                             <div class="dataTables_scroll clearfix withShadow">
                                 <div class="dataTables_scrollHead ui-state-default" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
                                     <div class="dataTables_scrollHeadInner" style="width: 462px; padding-right: 0px;">
-                                        <table class="tab tab-skin1 tableauvols tableauvols-complexe tableauvols-departure enhance enhance-flightBoardSortable-applied dataTable" data-flightboardsortable-itemsbypage="3000" data-flightboardsortable-type="all" data-flightboardsortable-filtersupdate="tableauvols-filtersupdate" data-flightboardsortable-triggeredevent="tableauvols-start" data-flightboardsortable-receiverevent="tableauvols-update" data-flightboardsortable-data="departure" data-flightboardsortable-mobile-show-all="true" data-enhance="flightBoardSortable" style="margin-left: 0px; width: 462px;">
+                                        <table id="tableauvols-main" class="tab tab-skin1 tableauvols tableauvols-complexe tableauvols-departure enhance enhance-flightBoardSortable-applied dataTable" data-flightboardsortable-itemsbypage="3000" data-flightboardsortable-type="all" data-flightboardsortable-filtersupdate="tableauvols-filtersupdate" data-flightboardsortable-triggeredevent="tableauvols-start" data-flightboardsortable-receiverevent="tableauvols-update" data-flightboardsortable-data="departure" data-flightboardsortable-mobile-show-all="true" data-enhance="flightBoardSortable" style="margin-left: 0px; width: 462px;">
                                             <thead class="tab-skin1-thead">
                                                 <tr role="row" id="tableauvols-departure-thead">
-                                                    <th class="first tab-col1 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 12px;" aria-label="Sched: activate to sort column ascending">
+                                                    <th class="first tab-col1 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 12px;" aria-label="Sched: activate to sort column ascending">
                                                         <div class="DataTables_sort_wrapper">
                                                             Sched<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
                                                         </div>
                                                     </th>
-                                                    <th class="tab-col2 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 11px;" aria-label="Revised: activate to sort column ascending">
+                                                    <th class="tab-col2 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 11px;" aria-label="Revised: activate to sort column ascending">
                                                         <div class="DataTables_sort_wrapper">
                                                             Revised<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
                                                         </div>
                                                     </th>
-                                                    <th class="tab-col3 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 15px;" aria-label="Flight: activate to sort column ascending">
+                                                    <th class="tab-col3 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 15px;" aria-label="Flight: activate to sort column ascending">
                                                         <div class="DataTables_sort_wrapper">
                                                             <span class="tableauvols-voltitle">Flight</span>
                                                             <span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
                                                         </div>
                                                     </th>
-                                                    <th class="tab-col4 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 11px;" aria-sort="descending" aria-label="Flight number: activate to sort column ascending">
+                                                    <th class="tab-col4 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 11px;" aria-sort="descending" aria-label="Flight number: activate to sort column ascending">
                                                         <div class="DataTables_sort_wrapper">
                                                             <span class="tableauvols-voltitle2 visually-hidden">Flight number</span>
                                                             <span class="DataTables_sort_icon icon icon-arrow-down icon-sortable-desc"></span>
                                                         </div>
                                                     </th>
-                                                    <th class="tab-col5 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 17px;" aria-label="Destination: activate to sort column ascending">
+                                                    <th class="tab-col5 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 17px;" aria-label="Destination: activate to sort column ascending">
                                                         <div class="DataTables_sort_wrapper">
                                                             Destination<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
                                                         </div>
                                                     </th>
-                                                    <th class="tab-col6 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 13px;" aria-label="State: activate to sort column ascending">
+                                                    <th class="tab-col6 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 13px;" aria-label="State: activate to sort column ascending">
                                                         <div class="DataTables_sort_wrapper">
                                                             State<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
                                                         </div>
                                                     </th>
-                                                    <th class="tab-col8 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 12px;" aria-label="Gate: activate to sort column ascending">
+                                                    <th class="tab-col8 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 12px;" aria-label="Gate: activate to sort column ascending">
                                                         <div class="DataTables_sort_wrapper">
                                                             Gate<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
                                                         </div>
@@ -214,23 +226,28 @@
                                                     </th>
                                                 </tr>
                                                 <tr role="row" id="tableauvols-arrival-thead" style="display: none;">
-                                                    <th class="first tab-col1 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Sched: activate to sort column descending" style="width: 13px;">
+                                                    <th class="first tab-col1 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Sched: activate to sort column descending" style="width: 13px;">
                                                         <div class="DataTables_sort_wrapper">Sched<span class="DataTables_sort_icon icon icon-arrow-up icon-sortable-asc"></span></div>
                                                     </th>
-                                                    <th class="tab-col2 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Revised: activate to sort column ascending" style="width: 12px;">
+                                                    <th class="tab-col2 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Revised: activate to sort column ascending" style="width: 12px;">
                                                         <div class="DataTables_sort_wrapper">Revised<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span></div>
                                                     </th>
-                                                    <th class="tab-col3 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Flight: activate to sort column ascending" style="width: 16px;">
+                                                    <th class="tab-col3 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Flight: activate to sort column ascending" style="width: 16px;">
                                                         <div class="DataTables_sort_wrapper"><span class="tableauvols-voltitle">Flight</span><span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span></div>
                                                     </th>
-                                                    <th class="tab-col4 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Flight number: activate to sort column ascending" style="width: 9px;">
+                                                    <th class="tab-col4 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Flight number: activate to sort column ascending" style="width: 9px;">
                                                         <div class="DataTables_sort_wrapper"><span class="tableauvols-voltitle2 visually-hidden">Flight number</span><span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span></div>
                                                     </th>
-                                                    <th class="tab-col5 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Origin: activate to sort column ascending" style="width: 21px;">
+                                                    <th class="tab-col5 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Origin: activate to sort column ascending" style="width: 21px;">
                                                         <div class="DataTables_sort_wrapper">Origin<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span></div>
                                                     </th>
-                                                    <th class="tab-col6 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="State: activate to sort column ascending" style="width: 16px;">
+                                                    <th class="tab-col6 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="State: activate to sort column ascending" style="width: 16px;">
                                                         <div class="DataTables_sort_wrapper">State<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span></div>
+                                                    </th>
+                                                    <th class="tab-col8 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 12px;" aria-label="Gate: activate to sort column ascending">
+                                                        <div class="DataTables_sort_wrapper">
+                                                            Gate<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
+                                                        </div>
                                                     </th>
                                                     <th class="last tab-col7 no-sortable ui-state-default tableauvols-suivi-header" role="columnheader" rowspan="1" colspan="1" aria-label="Follow" style="width: 13px;">
                                                         <div class="DataTables_sort_wrapper">Follow<span class="DataTables_sort_icon"></span></div>
@@ -241,16 +258,16 @@
                                     </div>
                                 </div>
                                 <div class="dataTables_scrollBody" style="overflow: auto; height: 600px; width: 100%; position: static;">
-                                    <table class="tab tab-skin1 tableauvols tableauvols-complexe tableauvols-departure enhance enhance-flightBoardSortable-applied dataTable" data-flightboardsortable-itemsbypage="3000" data-flightboardsortable-type="all" data-flightboardsortable-filtersupdate="tableauvols-filtersupdate" data-flightboardsortable-triggeredevent="tableauvols-start" data-flightboardsortable-receiverevent="tableauvols-update" data-flightboardsortable-data="departure" data-flightboardsortable-mobile-show-all="true" data-enhance="flightBoardSortable" id="DataTables_Table_0" style="margin-left: 0px; width: 100%;">
+                                    <table class="tab tab-skin1 tableauvols tableauvols-complexe tableauvols-departure enhance enhance-flightBoardSortable-applied dataTable" data-flightboardsortable-itemsbypage="3000" data-flightboardsortable-type="all" data-flightboardsortable-filtersupdate="tableauvols-filtersupdate" data-flightboardsortable-triggeredevent="tableauvols-start" data-flightboardsortable-receiverevent="tableauvols-update" data-flightboardsortable-data="departure" data-flightboardsortable-mobile-show-all="true" data-enhance="flightBoardSortable" style="margin-left: 0px; width: 100%;">
                                         <thead class="tab-skin1-thead">
                                             <tr role="row" style="height: 0px;">
-                                                <th class="first tab-col1 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 12px;" aria-label="Sched: activate to sort column ascending"></th>
-                                                <th class="tab-col2 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 11px;" aria-label="Revised: activate to sort column ascending"></th>
-                                                <th class="tab-col3 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 15px;" aria-label="Flight: activate to sort column ascending"></th>
-                                                <th class="tab-col4 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 11px;" aria-sort="descending" aria-label="Flight number: activate to sort column ascending"></th>
-                                                <th class="tab-col5 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 17px;" aria-label="Destination: activate to sort column ascending"></th>
-                                                <th class="tab-col6 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 13px;" aria-label="State: activate to sort column ascending"></th>
-                                                <th class="tab-col8 ui-state-default" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 12px;" aria-label="Gate: activate to sort column ascending"></th>
+                                                <th class="first tab-col1 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 12px;" aria-label="Sched: activate to sort column ascending"></th>
+                                                <th class="tab-col2 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 11px;" aria-label="Revised: activate to sort column ascending"></th>
+                                                <th class="tab-col3 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 15px;" aria-label="Flight: activate to sort column ascending"></th>
+                                                <th class="tab-col4 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 11px;" aria-sort="descending" aria-label="Flight number: activate to sort column ascending"></th>
+                                                <th class="tab-col5 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 17px;" aria-label="Destination: activate to sort column ascending"></th>
+                                                <th class="tab-col6 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 13px;" aria-label="State: activate to sort column ascending"></th>
+                                                <th class="tab-col8 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 12px;" aria-label="Gate: activate to sort column ascending"></th>
                                                 <th class="last tab-col7 no-sortable tableauvols-suivi-header" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 10px;"></th>
                                             </tr>
                                         </thead>
