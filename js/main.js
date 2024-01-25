@@ -90,7 +90,7 @@ function loadDepartures(startID = 0){
                 var flightDest = flight['arrivalAirportCode'];
                 var flightDestLong = flight['arrivalAirportName'];
                 var flightState = flightStates[flight['status']] ?? flight['status'];
-                var flightGate = flight['boardingGate'] ?? '';
+                var flightGate = flight['boardingGate'] ?? '-';
                 
                 var airlineLogo = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '';
                 var airlineLogoAlt = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '';
@@ -144,10 +144,10 @@ function loadArrivals(startID = 0){
             var arrivals = response['arrivals']; 
     
             var flightStates = {
-                IN_AIR: 'Departed',
-                OUT_GATE: 'Taxiing',
-                IN_GATE: 'Boarding',
-                SCHEDULED: '-',
+                IN_AIR: 'On Route',
+                IN_GATE: 'Arrived',
+                OUT_GATE: 'Advanced',
+                SCHEDULED: 'On Time',
                 DELAYED: 'Delayed',
                 LANDED: 'Landed',
                 CANCELLED: 'Cancelled'
@@ -163,17 +163,17 @@ function loadArrivals(startID = 0){
                 
                 //console.log(flight);
     
-                var flightDepartureTime = flight['localisedScheduledDepartureTime'];
-                var flightEstimatedDepartureTime = flight['localisedEstimatedDepartureTime'] ?? flightDepartureTime;
+                var flightArrivalTime = flight['localisedScheduledArrivalTime'];
+                var flightEstimatedArrivalTime = flight['localisedEstimatedArrivalTime'] ?? flightArrivalTime;
     
                 var airlineID = airlineCodes[flight['airlineId']] ?? (airlineCodes[flight['flightNumber'].slice(0, 2)] ?? flight['airlineId']);
                 var airlineCompany = flight['airlineName'];
     
                 var flightNumber = flight['flightNumber'];
-                var flightDest = flight['arrivalAirportCode'];
-                var flightDestLong = flight['arrivalAirportName'];
+                var flightOrigin = flight['departureAirportCode'];
+                var flightOriginLong = flight['departureAirportName'];
                 var flightState = flightStates[flight['status']] ?? flight['status'];
-                var flightGate = flight['boardingGate'] ?? '';
+                var flightGate = flight['arrivalGate'] ?? '-';
                 
                 var airlineLogo = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '';
                 var airlineLogoAlt = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '';
@@ -182,14 +182,14 @@ function loadArrivals(startID = 0){
 
                 try {
                     var onTime = `<td class="tab-col2"><span class="visually-hidden">No revision for this flight.</span></td>`
-                    var revisedTime = `<td class="tab-col2"><span class="hr" aria-hidden="true">${Date.parse(flightEstimatedDepartureTime)}</span><time class="tableauvols-datetime" datetime="${flightEstimatedDepartureTime}"><span class="tableauvols-hours tableauxvols-medium">${flightEstimatedDepartureTime.slice(-5)}</span><span class="tableauvols-date tableauxvols-medium">${new Date(flightEstimatedDepartureTime).toLocaleDateString('en-ca', {month:"short", day:"2-digit"})}</span></time><button class="tableauvols-toggle-button visually-hidden" aria-expanded="false">Toggle the flight detail ${flightNumber}</button></td>`
+                    var revisedTime = `<td class="tab-col2"><span class="hr" aria-hidden="true">${Date.parse(flightEstimatedArrivalTime)}</span><time class="tableauvols-datetime" datetime="${flightEstimatedArrivalTime}"><span class="tableauvols-hours tableauxvols-medium">${flightEstimatedArrivalTime.slice(-5)}</span><span class="tableauvols-date tableauxvols-medium">${new Date(flightEstimatedArrivalTime).toLocaleDateString('en-ca', {month:"short", day:"2-digit"})}</span></time><button class="tableauvols-toggle-button visually-hidden" aria-expanded="false">Toggle the flight detail ${flightNumber}</button></td>`
                     var tr =    `<tr class="tableauvols-row tab-skin1-row" flight-index="${i}">
-                                    <td class="first tab-col1"><span class="hr" aria-hidden="true">todayflight</span><span class="hr" aria-hidden="true">${Date.parse(flightDepartureTime)}</span><time class="tableauvols-datetime" datetime="${flightDepartureTime}"><span class="tableauvols-hours tableauxvols-normal">${flightDepartureTime.slice(-5)}</span><span class="tableauvols-date tableauxvols-normal">${new Date(flightDepartureTime).toLocaleDateString('en-ca', {month:"short", day:"2-digit"})}</span></time><button class="tableauvols-toggle-button visually-hidden" aria-expanded="false">Toggle the flight detail ${flightNumber}</button></td>
-                                    ${flightDepartureTime == flightEstimatedDepartureTime ? onTime : revisedTime}
+                                    <td class="first tab-col1"><span class="hr" aria-hidden="true">todayflight</span><span class="hr" aria-hidden="true">${Date.parse(flightArrivalTime)}</span><time class="tableauvols-datetime" datetime="${flightArrivalTime}"><span class="tableauvols-hours tableauxvols-normal">${flightArrivalTime.slice(-5)}</span><span class="tableauvols-date tableauxvols-normal">${new Date(flightArrivalTime).toLocaleDateString('en-ca', {month:"short", day:"2-digit"})}</span></time><button class="tableauvols-toggle-button visually-hidden" aria-expanded="false">Toggle the flight detail ${flightNumber}</button></td>
+                                    ${flightArrivalTime == flightEstimatedArrivalTime ? onTime : revisedTime}
                                     <td class="tab-col3"><img class="tableauxvols-flightdetails-logo-small" src="${airlineLogo}" alt="${airlineCompany}" onerror='this.onerror=null;this.src="${airlineLogoAlt}"'; " ${airlineLogo == '' ? 'hidden' : ''}><span class="visually-hidden text-for-search" aria-hidden="true">Company ${airlineCompany} </span></td>
                                     <td class="tab-col4 tableauvols-numvol"><span class="visually-hidden">Flight</span>${flightNumber}</td>
-                                    <td class="tab-col5"><span class="hr" aria-hidden="true">${flightDest}</span><span class="visually-hidden">To</span>${flightDestLong}</td>
-                                    <td class="tab-col6"><span class="visually-hidden">Status</span>${Date.parse(flightDepartureTime) > Date.parse(flightEstimatedDepartureTime) ? 'Revised time' : flightState}</td>
+                                    <td class="tab-col5"><span class="hr" aria-hidden="true">${flightOrigin}</span><span class="visually-hidden">To</span>${flightOriginLong}</td>
+                                    <td class="tab-col6"><span class="visually-hidden">Status</span>${Date.parse(flightArrivalTime) > Date.parse(flightEstimatedArrivalTime) ? 'Revised time' : flightState}</td>
                                     <td class="tab-col8"><span class="visually-hidden">Door number</span>${flightGate}</td>
                                     <td class="tab-col7 tableauvols-suivi last"><a href="${flightFollow}" class="tableauvols-alertsms-shortdesc"><span class="tableauvols-icon tableauvols-icon-favoris"></span><span class="tableauvols-icon tableauvols-icon-sms" aria-hidden="true"></span><span class="visually-hidden">Track by SMS ${flightNumber}</span></a></td>
                                 </tr>`
@@ -275,4 +275,6 @@ $(document).ready(function(){
         isDepartures = true;
         loadFlights();
     });
+
+    let table = new DataTable('#tableauvols-main');
 })
