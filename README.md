@@ -1,22 +1,38 @@
-# AirportWebcam
-Combined Webcam, Radio and Arrival/Departures board for YUL ✈
+# create-svelte
 
-### Sources
-🛫 - Flight Information : skyscanner.ca
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
-📷 - Webcam : goowebcams.com
+## Creating a project
 
-📻 - ATC Radio : liveatc.net
+If you're seeing this, you've probably already done this step. Congrats!
 
-🎨 - Styling : admtl.com
+```bash
+# create a new project in the current directory
+npm create svelte@latest
 
-### Demo
+# create a new project in my-app
+npm create svelte@latest my-app
+```
 
-Screenshot of the current webpage on Desktop.
+## Developing
 
-!
-!
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-|![Dark](./doc/img/demo.png)|
-|:-:|
-|Dark Mode on Desktop|
+```bash
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
+
+## Building
+
+To create a production version of your app:
+
+```bash
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
