@@ -27,8 +27,6 @@
             myAudio.addEventListener('play', function() {
                 audioCtx.resume();
             });
-
-            myAudio.play();
         } catch (error) {
             toast.error('Audio Peak Meter Error: ' + error)
         }
@@ -36,12 +34,12 @@
 
     let metar = 'CYUL 142300Z 29005KT 15SM FEW060 SCT080 12/07 A2970 RMK SC2AC1 SLP062';
 </script>
-<div class="flex gap-2 flex-col">
+<div class="flex gap-2 flex-col w-full">
 
     <h3 class="text-sm leading-[110%]" style="font-family: Helvetica, sans-serif">You are listening to: <br>CYUL Tower - Montreal, Quebec, Canada</h3>
     <h3 class="text-xs leading-[110%] font-mono text-[#adadad]">{metar}</h3>
-    <audio id="player" class="my-2" crossorigin="anonymous" preload="metadata" src="https://s1-bos.liveatc.net/cyul_twr2" controls={true} autoplay={true}></audio>
-    <div id="my-peak-meter" class="w-72 h-12 my-4">
+    <audio id="player" class="my-2 w-full" crossorigin="anonymous" preload="metadata" src="https://s1-bos.liveatc.net/cyul_twr2" controls={true} autoplay={true}></audio>
+    <div id="my-peak-meter" class="w-full h-12 my-4">
     </div>
 
     <div class="font-bold text-red-600 text-sm">

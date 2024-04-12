@@ -1,11 +1,12 @@
 <script>
     import Radio from '../components/Radio.svelte';
     import gooWebcamsLogo from '$lib/images/logo_goowebcams.jpg';
+    import Webcam from '../components/Webcam.svelte';
 </script>
 
 <main class="flex p-4 gap-6">
     <section class="w-10/12">
-        <img src="https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg" alt="live webcam image">
+        <Webcam/>
     </section>
     <section class="flex w-1/6 flex-wrap h-fit gap-6">
         <Radio />
