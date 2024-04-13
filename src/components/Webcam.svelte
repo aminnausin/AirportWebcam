@@ -36,4 +36,4 @@
     });
 </script>
 
-<img id="webcam" src="https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg" alt="live webcam" class="w-full">
+<img id="webcam" src="https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg" onerror="this.src='assets/webcamDefault.jpg';" alt="live webcam" class="w-full">
