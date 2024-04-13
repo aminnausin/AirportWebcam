@@ -1,3 +1,117 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.tableauvols-filters-day {
+    display: block;
+    text-transform: uppercase;
+    font-size: .933em;
+    line-height: 100%;
+    margin-bottom: 5px;
+    text-align: center
+}
+
+.tableauvols-filters-date {
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.714em;
+    line-height: 100%;
+    text-align: center
+}
+
+.btn-action {
+    outline: 0;
+    border: none;
+    color: #fff;
+    font-weight: 700 !important;
+    display: inline-block;
+    padding: 13px 26px;
+    position: relative;
+    font-size: 0.929em;
+    font-family: 'HCo Gotham';
+}
+
+.btn-action:hover {
+    text-decoration: none
+}
+
+.btn-action.btn-primary,.btn-action.btn-secondary {
+    background: #0275c2;
+    color: #fff
+}
+
+.btn-action.btn-primary:hover,.btn-action.btn-secondary:hover,.btn-action.btn-primary:focus,.btn-action.btn-secondary:focus {
+    background-color: #0393f4
+}
+
+.btn-action.btn-primary:hover .icon:after,.btn-action.btn-secondary:hover .icon:after,.btn-action.btn-primary:focus .icon:after,.btn-action.btn-secondary:focus .icon:after {
+    color: #fff
+}
+
+.btn-action.btn-primary:hover .icon.circle:after,.btn-action.btn-secondary:hover .icon.circle:after,.btn-action.btn-primary:focus .icon.circle:after,.btn-action.btn-secondary:focus .icon.circle:after {
+    color: #0393f4
+}
+
+.btn-action.btn-primary .icon:after,.btn-action.btn-secondary .icon:after {
+    color: #fff
+}
+
+.btn-action.btn-primary .icon.circle:after,.btn-action.btn-secondary .icon.circle:after {
+    color: #0275c2
+}
+
+.btn-action.selected {
+    box-shadow: 4px 4px 7px #0F4054 inset
+}
+
+.btn-action.dark {
+    background: #014776
+}
+
+.btn-action.dark.selected:hover,.btn-action.dark:hover {
+    cursor: default;
+    background: #01385d
+}
+
+@font-face {
+    font-family: 'adm-pictos-regular';
+    src: url('fonts/adm-pictos-regular.eot');
+    src: url('fonts/adm-pictos-regular.eot?#iefix') format('embedded-opentype'),url('fonts/adm-pictos-regular.woff') format('woff'),url('fonts/adm-pictos-regular.ttf') format('truetype'),url('fonts/adm-pictos-regular.svg#brankic1979') format('svg');
+    font-weight: normal;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'HCo Gotham';
+    src: url('fonts/Gotham-XLight_Web.woff2') format('woff2'),url('fonts/Gotham-XLight_Web.woff') format('woff');
+    font-weight: 200;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'HCo Gotham';
+    src: url('fonts/Gotham-Light_Web.woff2') format('woff2'),url('fonts/Gotham-Light_Web.woff') format('woff');
+    font-weight: 300;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'HCo Gotham';
+    src: url('fonts/Gotham-Book_Web.woff2') format('woff2'),url('fonts/Gotham-Book_Web.woff') format('woff');
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'HCo Gotham';
+    src: url('fonts/Gotham-Medium_Web.woff2') format('woff2'),url('fonts/Gotham-Medium_Web.woff') format('woff');
+    font-weight: 500;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'HCo Gotham';
+    src: url('fonts/Gotham-Bold_Web.woff2') format('woff2'),url('fonts/Gotham-Bold_Web.woff') format('woff');
+    font-weight: 700;
+    font-style: normal
+}
