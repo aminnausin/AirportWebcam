@@ -29,6 +29,7 @@
             });
         } catch (error) {
             toast.error('Audio Peak Meter Error: ' + error)
+            console.log(error);
         }
     });
 

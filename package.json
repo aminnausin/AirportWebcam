@@ -23,6 +23,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"jquery": "^3.7.1",
 		"svelte-french-toast": "^1.2.0"
 	}
 }

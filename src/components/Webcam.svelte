@@ -34,6 +34,20 @@
         buffer = new Image;
         LoadNextImage(); 
     });
+    export let live = false;
 </script>
 
-<img id="webcam" src="https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg" onerror="this.src='assets/webcamDefault.jpg';" alt="live webcam" class="w-full">
+
+{#if !live}
+    <img id="webcam" src="https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg" onerror="this.src='assets/webcamDefault.jpg';" alt="live webcam" class="w-full">
+{:else}
+    <iframe 
+        src="https://www.youtube.com/embed/AMwf1ZVbuPA?si=uPtYZXzA_zp2qqhU" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen
+        class='aspect-video w-full'>
+    </iframe>
+{/if}

@@ -21,7 +21,6 @@
 
 .btn-action {
     outline: 0;
-    border: none;
     color: #fff;
     font-weight: 700 !important;
     display: inline-block;
@@ -35,28 +34,28 @@
     text-decoration: none
 }
 
-.btn-action.btn-primary,.btn-action.btn-secondary {
+.btn-action,.btn-action.btn-secondary {
     background: #0275c2;
     color: #fff
 }
 
-.btn-action.btn-primary:hover,.btn-action.btn-secondary:hover,.btn-action.btn-primary:focus,.btn-action.btn-secondary:focus {
+.btn-action:hover,.btn-action.btn-secondary:hover,.btn-action:focus,.btn-action.btn-secondary:focus {
     background-color: #0393f4
 }
 
-.btn-action.btn-primary:hover .icon:after,.btn-action.btn-secondary:hover .icon:after,.btn-action.btn-primary:focus .icon:after,.btn-action.btn-secondary:focus .icon:after {
+.btn-action:hover .icon:after,.btn-action.btn-secondary:hover .icon:after,.btn-action:focus .icon:after,.btn-action.btn-secondary:focus .icon:after {
     color: #fff
 }
 
-.btn-action.btn-primary:hover .icon.circle:after,.btn-action.btn-secondary:hover .icon.circle:after,.btn-action.btn-primary:focus .icon.circle:after,.btn-action.btn-secondary:focus .icon.circle:after {
+.btn-action:hover .icon.circle:after,.btn-action.btn-secondary:hover .icon.circle:after,.btn-action:focus .icon.circle:after,.btn-action.btn-secondary:focus .icon.circle:after {
     color: #0393f4
 }
 
-.btn-action.btn-primary .icon:after,.btn-action.btn-secondary .icon:after {
+.btn-action .icon:after,.btn-action.btn-secondary .icon:after {
     color: #fff
 }
 
-.btn-action.btn-primary .icon.circle:after,.btn-action.btn-secondary .icon.circle:after {
+.btn-action .icon.circle:after,.btn-action.btn-secondary .icon.circle:after {
     color: #0275c2
 }
 
@@ -71,6 +70,187 @@
 .btn-action.dark.selected:hover,.btn-action.dark:hover {
     cursor: default;
     background: #01385d
+}
+
+.tableauxvols-showall {
+    margin-bottom: 18px;
+    font-size: .933em;
+    vertical-align: middle;
+    float: right;
+    position: relative
+}
+
+.icon:after {
+    font-family: "adm-pictos-regular";
+    font-variant: normal;
+    font-weight: normal;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    /* content: '\E04C'; */
+    vertical-align: middle;
+}
+
+a {
+    color: #0275c2;
+}
+
+a:hover, a:focus {
+    color: #005580;
+    text-decoration: underline;
+}
+
+input, select, textarea {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'HCo Gotham';
+}
+
+.tab-skin1 {
+    background-color: #3c4144;
+    color: #fff;
+    width: 100%;
+    font-size: 15px;
+    text-align: left;
+}
+
+.tab-skin1 {
+    background-color: #3c4144;
+    color: #fff;
+    width: 100%;
+    font-size: 15px;
+    text-align: left
+}
+
+.tab-skin1-thead th {
+    background: #303437;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 0.75em 0.8em;
+    text-align: left
+}
+
+.tab-skin1-thead th.first {
+    padding-left: 1.4em
+}
+
+.tab-skin1-thead th.last {
+    padding-right: 1.4em
+}
+
+.tab-skin1-thead th:focus {
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px
+}
+
+.tab-skin1-thead tr:hover,.tab-skin1-thead tr:focus-within {
+    -webkit-transition: background-image .8s ease-out;
+    -moz-transition: background-image .8s ease-out;
+    -o-transition: background-image .8s ease-out;
+    -ms-transition: background-image .8s ease-out;
+    transition: background-image .8s ease-out;
+    background-color: #002d3d;
+    cursor: pointer
+}
+
+.tab-skin1-thead tr:focus-within .tableauvols-toggle-button {
+    outline: none
+}
+
+.tab-skin1-tbody td {
+    padding: 0.75em 0.8em
+}
+
+.tab-skin1-tbody td.first {
+    padding-left: 1.4em
+}
+
+.tab-skin1-tbody td.last {
+    padding-right: 1.4em
+}
+
+.tab-skin1-tbody tr:hover,.tab-skin1-tbody tr:focus-within {
+    -webkit-transition: background-image .8s ease-out;
+    -moz-transition: background-image .8s ease-out;
+    -o-transition: background-image .8s ease-out;
+    -ms-transition: background-image .8s ease-out;
+    transition: background-image .8s ease-out;
+    background-color: #002d3d;
+    cursor: pointer
+}
+
+.tab-skin1-tbody tr:focus-within .tableauvols-toggle-button {
+    outline: none
+}
+
+.hr {
+    font: 0 / 0 a;
+    text-shadow: none;
+    color: transparent;
+    float: left;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.tableauvols.tableauvols-complexe .tab-col1 {
+    width: 13% !important
+}
+
+.tableauvols.tableauvols-complexe .tab-col2 {
+    width: 12% !important
+}
+
+.tableauvols.tableauvols-complexe .tab-col3 {
+    width: 16% !important
+}
+
+.tableauvols.tableauvols-complexe .tab-col4 {
+    width: 9% !important
+}
+
+.tableauvols.tableauvols-complexe .tab-col5 {
+    width: 21% !important
+}
+
+.tableauvols.tableauvols-complexe .tab-col6 {
+    width: 16% !important
+}
+
+.tableauvols.tableauvols-complexe .tab-col7 {
+    width: 13% !important
+}
+
+.tableauvols.tableauvols-complexe.tableauvols-departure .tab-col1 {
+    width: 12% !important
+}
+
+.tableauvols.tableauvols-complexe.tableauvols-departure .tab-col2 {
+    width: 11% !important
+}
+
+.tableauvols.tableauvols-complexe.tableauvols-departure .tab-col3 {
+    width: 15% !important
+}
+
+.tableauvols.tableauvols-complexe.tableauvols-departure .tab-col4 {
+    width: 11% !important
+}
+
+.tableauvols.tableauvols-complexe.tableauvols-departure .tab-col5 {
+    width: 17% !important
+}
+
+.tableauvols.tableauvols-complexe.tableauvols-departure .tab-col6 {
+    width: 13% !important
+}
+
+.tableauvols.tableauvols-complexe.tableauvols-departure .tab-col8 {
+    width: 12% !important
+}
+
+.tableauvols.tableauvols-complexe.tableauvols-departure .tab-col7 {
+    width: 10% !important
 }
 
 @font-face {
