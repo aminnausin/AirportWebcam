@@ -63,7 +63,7 @@
      * @param {{ code: string; }} param
      */
     function a(node, param) {
-        title = `${param.code.toLocaleUpperCase()} Flight Information`;
+        title = `${param.code.toLocaleUpperCase()} Flight Information ${CONFIG.dataType === 'departures' ? 'Departures' : 'Arrivals'}`;
 
         handleUpdate();
         return {
