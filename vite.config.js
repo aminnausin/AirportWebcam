@@ -5,7 +5,7 @@ export default defineConfig({
 	plugins: [sveltekit()],
 	resolve: {
 		alias: {
-			$fonts: resolve('./static/fonts')
+			$fonts: resolve('./fonts')
 		}
 	}
 });
