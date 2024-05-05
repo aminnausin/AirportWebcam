@@ -255,42 +255,42 @@ input, select, textarea {
 
 @font-face {
     font-family: 'adm-pictos-regular';
-    src: url('$fonts/adm-pictos-regular.woff') format('woff');
+    src: url('./fonts/adm-pictos-regular.woff') format('woff');
     font-weight: normal;
     font-style: normal
 }
 
 @font-face {
     font-family: 'HCo Gotham';
-    src: url('$fonts/Gotham-XLight_Web.woff2') format('woff2');
+    src: url('./fonts/Gotham-XLight_Web.woff2') format('woff2');
     font-weight: 200;
     font-style: normal
 }
 
 @font-face {
     font-family: 'HCo Gotham';
-    src: url('$fonts/Gotham-Light_Web.woff2') format('woff2');
+    src: url('./fonts/Gotham-Light_Web.woff2') format('woff2');
     font-weight: 300;
     font-style: normal
 }
 
 @font-face {
     font-family: 'HCo Gotham';
-    src: url('$fonts/Gotham-Book_Web.woff2') format('woff2');
+    src: url('./fonts/Gotham-Book_Web.woff2') format('woff2');
     font-weight: 400;
     font-style: normal
 }
 
 @font-face {
     font-family: 'HCo Gotham';
-    src: url('$fonts/Gotham-Medium_Web.woff2') format('woff2');
+    src: url('./fonts/Gotham-Medium_Web.woff2') format('woff2');
     font-weight: 500;
     font-style: normal
 }
 
 @font-face {
     font-family: 'HCo Gotham';
-    src: url('$fonts/Gotham-Bold_Web.woff2') format('woff2');
+    src: url('./fonts/Gotham-Bold_Web.woff2') format('woff2');
     font-weight: 700;
     font-style: normal
 }
