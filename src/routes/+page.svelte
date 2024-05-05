@@ -19,7 +19,7 @@
 </script>
 
 <main class="flex p-4 gap-y-6 flex-wrap">
-    <section class="w-full lg:w-10/12 pe-3">
+    <section class="w-full lg:w-10/12 lg:pe-3">
         <Webcam live={liveCam}/>
     </section>
     <section class="flex w-full lg:w-1/6 lg:flex-wrap ps-3 gap-6 h-full">
