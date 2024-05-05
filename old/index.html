@@ -379,3 +379,21 @@
         </div>
     </body>
 </html>
+
+
+<tr class="tableauvols-row tab-skin1-row">
+    <td class="first tab-col1">
+        <span class="hr" aria-hidden="true">
+            todayflight</span>
+        <span class="hr" aria-hidden="true">
+            ${Date.parse(flightArrivalTime)}
+        </span>
+        <time class="tableauvols-datetime" datetime="${flightArrivalTime}"><span class="tableauvols-hours tableauxvols-normal">${flightArrivalTime.slice(-5)}</span><span class="tableauvols-date tableauxvols-normal">${new Date(flightArrivalTime).toLocaleDateString('en-ca', {month:"short", day:"2-digit"})}</span></time><button class="tableauvols-toggle-button visually-hidden" aria-expanded="false">Toggle the flight detail ${flightNumber}</button></td>
+    ${flightArrivalTime == flightEstimatedArrivalTime ? onTime : revisedTime}
+    <td class="tab-col3"><img class="tableauxvols-flightdetails-logo-small" src="${airlineLogo}" alt="${airlineCompany}" onerror='this.onerror=null;this.src="${airlineLogoAlt}"'; " ${airlineLogo == '' ? 'hidden' : ''}><span class="visually-hidden text-for-search" aria-hidden="true">Company ${airlineCompany} </span></td>
+    <td class="tab-col4 tableauvols-numvol"><span class="visually-hidden">Flight</span>${flightNumber}</td>
+    <td class="tab-col5"><span class="hr" aria-hidden="true">${flightOrigin}</span><span class="visually-hidden">To</span>${flightOriginLong}</td>
+    <td class="tab-col6"><span class="visually-hidden">Status</span>${Date.parse(flightArrivalTime) > Date.parse(flightEstimatedArrivalTime) ? 'Revised time' : flightState}</td>
+    <td class="tab-col8"><span class="visually-hidden">Door number</span>${flightGate}</td>
+    <td class="tab-col7 tableauvols-suivi last"><a href="${flightFollow}" class="tableauvols-alertsms-shortdesc"><span class="tableauvols-icon tableauvols-icon-favoris"></span><span class="tableauvols-icon tableauvols-icon-sms" aria-hidden="true"></span><span class="visually-hidden">Track by SMS ${flightNumber}</span></a></td>
+</tr>
