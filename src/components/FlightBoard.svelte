@@ -173,7 +173,7 @@
             </div>
         </div>
         <section class="relative">
-            <div class="dataTables_scrollHead ui-state-default overflow-hidden border-0 w-full shadow-lg absolute top-0 rounded-t-md z-10">
+            <div class="dataTables_scrollHead ui-state-default overflow-hidden border-0 w-full shadow-lg rounded-t-md z-10">
                 <div class="dataTables_scrollHeadInner">
                     <table id="tableauvols-main" class="tab tab-skin1 tableauvols tableauvols-complexe tableauvols-departure enhance enhance-flightBoardSortable-applied dataTable">
                         <thead class="tab-skin1-thead">
@@ -254,7 +254,7 @@
                     </table>
                 </div>
             </div>
-            <div class="dataTables_scrollBody w-full rounded-b-md shadow overflow-auto absolute top-12">
+            <div class="dataTables_scrollBody w-full rounded-b-md shadow overflow-auto">
                 <table class="tab tab-skin1 tableauvols tableauvols-complexe tableauvols-departure enhance enhance-flightBoardSortable-applied dataTable" data-flightboardsortable-itemsbypage="3000" data-flightboardsortable-type="all" data-flightboardsortable-filtersupdate="tableauvols-filtersupdate" data-flightboardsortable-triggeredevent="tableauvols-start" data-flightboardsortable-receiverevent="tableauvols-update" data-flightboardsortable-data="departure" data-flightboardsortable-mobile-show-all="true" data-enhance="flightBoardSortable" style="margin-left: 0px; width: 100%;">
                     <thead class="tab-skin1-thead">
                         <tr style="height: 0px;">
