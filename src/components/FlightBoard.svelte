@@ -71,7 +71,7 @@
              * @param {{ code: string; }} param
              */
             update(param) {
-                title = `${param.code.toLocaleUpperCase()} Flight Information`;
+                title = `${param.code.toLocaleUpperCase()} Flight Information ${CONFIG.dataType === 'departures' ? 'Departures' : 'Arrivals'}`;
                 rawLastUpdate = new Date();
                 handleUpdate();
             },
