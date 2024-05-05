@@ -36,6 +36,7 @@
     const loadFlightData = async () => {
         flights = [];
         let url = '';
+        boardTitle = CONFIG.dataType === 'departures' ? 'Departures' : 'Arrivals';
         switch (CONFIG.dataType) {
             case "arrivals":
                 url = `https://www.skyscanner.ca/g/arrival-departure-svc/api/airports/${airport.code}/arrivals?locale=en-US`;
@@ -63,7 +64,7 @@
      * @param {{ code: string; }} param
      */
     function a(node, param) {
-        title = `${param.code.toLocaleUpperCase()} Flight Information ${CONFIG.dataType === 'departures' ? 'Departures' : 'Arrivals'}`;
+        title = `${param.code.toLocaleUpperCase()} Flight Information`;
 
         handleUpdate();
         return {
@@ -71,7 +72,7 @@
              * @param {{ code: string; }} param
              */
             update(param) {
-                title = `${param.code.toLocaleUpperCase()} Flight Information ${CONFIG.dataType === 'departures' ? 'Departures' : 'Arrivals'}`;
+                title = `${param.code.toLocaleUpperCase()} Flight Information`;
                 rawLastUpdate = new Date();
                 handleUpdate();
             },
@@ -100,6 +101,7 @@
      */
     let flights = [];
     let title = '';
+    let boardTitle = '';
     /**
      * @type {number | undefined}
      */
@@ -110,7 +112,7 @@
     <div class="tableauxvols-automaticupdate-wrapper overflow-hidden flex justify-between items-start" >
         <div data-enhance="automaticUpdate" class="flex flex-wrap items-center" data-automaticupdate-receiverevent="tableauvols-start" data-automaticupdate-type="serverside" data-automaticupdate-triggeredevent="tableauvols-update" data-automaticupdate-start="false" data-automaticupdate-trigger=".tableauvols-automaticupdate-trigger" style="color: #ffffff;">
             <div class="font-bold text-xl w-full align-middle tableauxvols-automaticupdate-label" id="airportIDHeader" use:a={airport}>
-                {title}     
+                {title} ({boardTitle})
             </div>
             <div class="font-bold text-xl align-middle tableauxvols-automaticupdate-label">
                 Last update :&nbsp;      
