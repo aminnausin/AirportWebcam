@@ -52,17 +52,17 @@
         CANCELLED: 'Cancelled'
     }
         
-    let flightTime = CONFIG.type === 'departure' ? flight['localisedScheduledDepartureTime'] : flight['localisedScheduledArrivalTime'];
-    let flightEstimatedTime = CONFIG.type === 'departure' ? flight['localisedEstimatedDepartureTime'] ?? flightDepartureTime : flight['localisedEstimatedArrivalTime'] ?? flightTime;
+    let flightTime = CONFIG.type === 'departures' ? flight['localisedScheduledDepartureTime'] : flight['localisedScheduledArrivalTime'];
+    let flightEstimatedTime = CONFIG.type === 'departures' ? flight['localisedEstimatedDepartureTime'] ?? flightDepartureTime : flight['localisedEstimatedArrivalTime'] ?? flightTime;
 
     let airlineID = airlineCodes[flight['airlineId']] ?? (airlineCodes[flight['flightNumber'].slice(0, 2)] ?? flight['airlineId']);
     let airlineCompany = flight['airlineName'];
 
     let flightNumber = flight['flightNumber'];
-    let flightAirport = CONFIG.type === 'departure' ? flight['departureAirportCode'] : flight['arrivalAirportCode'];
-    let flightAirportLong = CONFIG.type === 'departure' ? flight['departureAirportName'] : flight['arrivalAirportName'];
+    let flightAirport = CONFIG.type === 'departures' ? flight['departureAirportCode'] : flight['arrivalAirportCode'];
+    let flightAirportLong = CONFIG.type === 'departures' ? flight['departureAirportName'] : flight['arrivalAirportName'];
     let flightState = flightStates[flight['status']] ?? flight['status'];
-    let flightGate = CONFIG.type === 'departure' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
+    let flightGate = CONFIG.type === 'departures' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
     
     let airlineLogo = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '';
     let airlineLogoAlt = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '';
