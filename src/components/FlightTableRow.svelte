@@ -59,8 +59,8 @@
     let airlineCompany = flight['airlineName'];
 
     let flightNumber = flight['flightNumber'];
-    let flightAirport = CONFIG.dataType === 'departures' ? flight['departureAirportCode'] : flight['arrivalAirportCode'];
-    let flightAirportLong = CONFIG.dataType === 'departures' ? flight['departureAirportName'] : flight['arrivalAirportName'];
+    let flightAirport = CONFIG.dataType === 'departures' ? flight['arrivalAirportCode'] : flight['departureAirportCode'];
+    let flightAirportLong = CONFIG.dataType === 'departures' ? flight['arrivalAirportName'] : flight['departureAirportName'];
     let flightState = flightStates[flight['status']] ?? flight['status'];
     let flightGate = CONFIG.dataType === 'departures' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
     
@@ -85,7 +85,7 @@
             Toggle the flight detail {flightNumber}
         </button>
     </td>
-    {#if flightTime == flightEstimatedTime}
+    {#if flightTime === flightEstimatedTime}
         <td class="tab-col2">
             <span class="hidden">No revision for this flight.</span>
         </td>
@@ -96,7 +96,7 @@
             </span>
             <time class="flex flex-col items-center justify-center text-left w-full" datetime="{flightEstimatedTime}">
                 <span class="mb-1 text-[#fbbb37]">{flightEstimatedTime.slice(-5)}</span>
-                <span class="ml-1 text-[0.65em] line text-[#fbbb37]">{new Date(flightEstimatedTime).toLocaleDateString('en-ca', {month:"short", day:"2-digit"})}</span>
+                <span class="ml-1 text-[0.65em] line text-[#fbbb37]">{flightEstimatedTime ? new Date(flightEstimatedTime).toLocaleDateString('en-ca', {month:"short", day:"2-digit"}) : ''}</span>
             </time>
             <button class="tableauvols-toggle-button hidden" aria-expanded="false">
                 Toggle the flight detail {flightNumber}
