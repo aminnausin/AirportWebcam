@@ -1,14 +1,17 @@
 <script>
 	import { onMount } from 'svelte';
     let imageUrl = 'https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg';
-    let  random = new Date().getTime();
+    let random = new Date().getTime();
     let delay = 0.5;
     let counter = 0;
     /**
      * @type {HTMLImageElement}
      */
     let buffer; 
-
+    /**
+     * @type {number | null}
+     */
+    let timeOut = null;
     function DisplayImage() { 
         var img = document.querySelector('#webcam');
         
@@ -27,8 +30,13 @@
         buffer.onload = DisplayImage; 
     } 
     function LoadNextImage() { 
-        setTimeout(LoadBuffer, 1000*delay); 
+        timeOut = setTimeout(LoadBuffer, 1000*delay); 
     } 
+
+    export function forceUpdate() {
+        if(timeOut !== null) clearTimeout(timeOut);
+        LoadNextImage();
+    }
 
     onMount(() => {
         buffer = new Image;

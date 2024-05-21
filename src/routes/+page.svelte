@@ -13,14 +13,18 @@
         selectedAirport = airports[index]
     }
 
+    /**
+     * @type {FlightBoard}
+     */
+    let webcam;
     let liveCam = false;
     let airports = [{'code' : 'yul', 'icao' : 'CYUL', 'radio': '_twr2', 'location': 'Montreal, Quebec, Canada'}, {'code' : 'ytz', 'icao' : 'CYTZ', 'radio': '4', 'location': 'Toronto, Ontario, Canada'}];
-    let selectedAirport = airports[0] ?? null
+    let selectedAirport = airports[0] ?? null;
 </script>
 
 <main class="flex p-4 gap-y-6 flex-wrap">
     <section class="w-full lg:w-10/12 lg:pe-3">
-        <Webcam live={liveCam}/>
+        <Webcam live={liveCam} bind:this={webcam}/>
     </section>
     <section class="flex w-full lg:w-1/6 lg:flex-wrap ps-3 gap-6 h-full">
         <Radio airport={selectedAirport}/>
@@ -34,7 +38,7 @@
                 </h6>
                 <div class="flex gap-2 items-center justify-between w-full">
                     <img src={gooWebcamsLogo} alt="Webcam company logo" class="h-12 object-contain rounded-md">
-                    <button class="font-medium rounded-md bg-neutral-100 p-2 text-black h-fit line-clamp-1 flex w-full text-center justify-center items-center">Force Update Webcam</button>
+                    <button class="font-medium rounded-md bg-neutral-100 p-2 text-black h-fit line-clamp-1 flex w-full text-center justify-center items-center" on:click={() => {if(webcam) webcam.forceUpdate()}}>Force Update Webcam</button>
                 </div>
                 <div class='w-full'>
                     <button class="font-medium rounded-md bg-neutral-100 p-2 text-black h-fit line-clamp-1 flex w-full text-center justify-center items-center" on:click={handleFeedSwap}>
