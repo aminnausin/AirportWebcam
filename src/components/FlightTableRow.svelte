@@ -139,11 +139,10 @@
         {flightGate}
     </td>
     <td class="tab-col7 tableauvols-suivi last">
-        <a href="{flightFollow}" class="tableauvols-alertsms-shortdesc">
-            <span class="tableauvols-icon tableauvols-icon-favoris"></span>
-            <span class="tableauvols-icon tableauvols-icon-sms" aria-hidden="true"></span>
+        <a href="{flightFollow}" class="tableauvols-alertsms-shortdesc hover:no-underline">
+            <span class="icon after:content-['\E011'] text-[1.9em] text-[#0abbff] hover:text-[#0899dd]" aria-hidden="true"></span>
             <span class="hidden">
-                Track by SMS {flightNumber}
+                {`Track by SMS ${flightNumber}`}
             </span>
         </a>
     </td>
