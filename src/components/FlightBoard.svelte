@@ -88,7 +88,7 @@
      * @param {any} node
      * @param {{ code: string; }} param
      */
-    function a(node, param) {
+    function titleUpdateTrigger(node, param) {
         title = `${param.code.toLocaleUpperCase()} Flight Information`;
 
         handleUpdate();
@@ -138,7 +138,7 @@
 <div class="block-tableauVols w-full">
     <div class="tableauxvols-automaticupdate-wrapper overflow-hidden flex justify-between items-start" >
         <div data-enhance="automaticUpdate" class="flex flex-wrap items-center line-clamp-2" data-automaticupdate-receiverevent="tableauvols-start" data-automaticupdate-type="serverside" data-automaticupdate-triggeredevent="tableauvols-update" data-automaticupdate-start="false" data-automaticupdate-trigger=".tableauvols-automaticupdate-trigger" style="color: #ffffff;">
-            <div class="font-bold text-xl w-full align-middle tableauxvols-automaticupdate-label" id="airportIDHeader" use:a={airport}>
+            <div class="font-bold text-xl w-full align-middle tableauxvols-automaticupdate-label" id="airportIDHeader" use:titleUpdateTrigger={airport}>
                 {title} ({filteredFlights.length} Results)
             </div>
             <div class="font-bold text-xl align-middle tableauxvols-automaticupdate-label">

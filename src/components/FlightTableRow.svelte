@@ -4,7 +4,7 @@
     export let CONFIG = {};
     export let flight = {};
 
-    var airlineCodes = {
+    const AIRLINE_CODES = {
         AC: 'ACA',
         PD: 'POE',
         TS: 'TSC',
@@ -52,11 +52,14 @@
         CANCELLED: 'Cancelled'
     }
 
+    /**
+     * Parse data components from raw flight data
+     */
     function parseFlight() {
         flightTime = CONFIG.dataType === 'departures' ? flight['localisedScheduledDepartureTime'] : flight['localisedScheduledArrivalTime'];
         flightEstimatedTime = CONFIG.dataType === 'departures' ? flight['localisedEstimatedDepartureTime'] ?? '' : flight['localisedEstimatedArrivalTime'] ?? flightTime;
 
-        airlineID = airlineCodes[flight['airlineId']] ?? (airlineCodes[flight['flightNumber'].slice(0, 2)] ?? flight['airlineId']);
+        airlineID = AIRLINE_CODES[flight['airlineId']] ?? (AIRLINE_CODES[flight['flightNumber'].slice(0, 2)] ?? flight['airlineId']);
         airlineCompany = flight['airlineName'];
 
         flightNumber = flight['flightNumber'];
@@ -71,8 +74,12 @@
         flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
     }
         
-
-    function a(node, param) {
+    /**
+     * Trigger re-parsing flight data on prop update.
+     * @param node // unused
+     * @param param // flight data prop
+     */
+    function updateFlightDataTrigger(node, param) {
         parseFlight();
         return {
             update(param) {
@@ -81,10 +88,12 @@
         };
     }
 
+    // Flight Data
+    
     let flightTime = CONFIG.dataType === 'departures' ? flight['localisedScheduledDepartureTime'] : flight['localisedScheduledArrivalTime'];
     let flightEstimatedTime = CONFIG.dataType === 'departures' ? flight['localisedEstimatedDepartureTime'] ?? '' : flight['localisedEstimatedArrivalTime'] ?? flightTime;
 
-    let airlineID = airlineCodes[flight['airlineId']] ?? (airlineCodes[flight['flightNumber'].slice(0, 2)] ?? flight['airlineId']);
+    let airlineID = AIRLINE_CODES[flight['airlineId']] ?? (AIRLINE_CODES[flight['flightNumber']?.slice(0, 2)] ?? flight['airlineId']);
     let airlineCompany = flight['airlineName'];
 
     let flightNumber = flight['flightNumber'];
@@ -99,7 +108,7 @@
     let flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
 </script>
 
-<tr class="tableauvols-row tab-skin1-row" use:a={flight}>
+<tr class="tableauvols-row tab-skin1-row" use:updateFlightDataTrigger={flight}>
     <td class="first tab-col1">
         <span class="hr" aria-hidden="true">
             todayflight</span>

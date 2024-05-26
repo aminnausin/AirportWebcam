@@ -1,37 +1,32 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
     import toast from 'svelte-french-toast';
-    let imageUrl = 'https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg';
-    let random = new Date().getTime();
-    let delay = 0.5;
+    const IMAGE_URL = 'https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg';
+    const RANDOM = new Date().getTime();
+    const DELAY = 0.5;
     let counter = 0;
-    /**
-     * @type {HTMLImageElement}
-     */
-    let buffer; 
-    /**
-     * @type {number | null}
-     */
-    let timeOut = null;
+    let buffer: HTMLImageElement; 
+    let timeOut: number | null | undefined = null;
+
+    
     function DisplayImage() { 
-        var img = document.querySelector('#webcam');
+        var img = (document.querySelector('#webcam') as HTMLImageElement);
         
         if(img){
-            // @ts-ignore
             img.src = buffer.src; 
             LoadNextImage(); 
         }
     } 
     function LoadBuffer () { 
-        var trickname = imageUrl; 
+        var trickname = IMAGE_URL; 
         ++counter; 
 
-        trickname += "?counter=" + (random + counter); 
+        trickname += "?counter=" + (RANDOM + counter); 
         buffer.src = trickname; 
         buffer.onload = DisplayImage; 
     } 
     function LoadNextImage() { 
-        timeOut = setTimeout(LoadBuffer, 1000*delay); 
+        timeOut = setTimeout(LoadBuffer, 1000*DELAY); 
     } 
 
     export function forceUpdate() {
