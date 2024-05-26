@@ -4,6 +4,9 @@
     export let CONFIG = {};
     export let flight = {};
 
+    /**
+     * Airline codes that connect flight numbers to corresponding keywords used by YUL to display airline logos
+    */
     const AIRLINE_CODES = {
         AC: 'ACA',
         PD: 'POE',
@@ -41,6 +44,9 @@
         CM: 'copaairlines'
     }
 
+    /**
+     * Flight states that connect skyscanner states to corresponding YUL states
+    */
     let flightStates = CONFIG.dataType == 'departures' ? {
         IN_AIR: 'Departed',
         OUT_GATE: 'Taxiing',
@@ -103,7 +109,6 @@
             },
         };
     }
-
 
     // Flight Data
     
@@ -203,7 +208,7 @@
         {flightGate}
     </td>
     <td class="tab-col7 tableauvols-suivi last">
-        <a href="{flightFollow}" class="tableauvols-alertsms-shortdesc hover:no-underline">
+        <a href="{flightFollow}" class="tableauvols-alertsms-shortdesc hover:no-underline" target="_blank">
             <span class="icon after:content-['\E011'] text-[1.9em] text-[#0abbff] hover:text-[#0899dd]" aria-hidden="true"></span>
             <span class="hidden">
                 {`Track by SMS ${flightNumber}`}
@@ -212,7 +217,6 @@
     </td>
 </tr>
 {#if expanded}
-    <!-- content here -->
     <tr class="bg-[#303437]">
         <td class="cursor-default hover:bg-[#303437]" colspan="8">
             <div class="tableauxvols-flightdetails flex" colspan="8">
@@ -225,7 +229,7 @@
                     />
                     <span class="tableauxvols-flightdetails-flight text-right block">Flight</span>
                     <span class="block text-right text-[1.4rem] md:text-[1.8rem] font-bold pb-8 text-[#0abbff]">{flightNumber}</span>
-                    <a href="{flightFollow}" class="block text-right pl-6 relative align-middle">
+                    <a href="{flightFollow}" class="block text-right pl-6 relative align-middle" target="_blank">
                         <span class="icon after:content-['\E011'] text-[1.9em] text-[#0abbff] -left-1 -top-3 absolute"aria-hidden="true"></span>
                         <span class="w-full leading-[125%] text-[#0abbff] text-base ">Track by SMS 
                             <span class="hidden">{flightNumber}</span>
