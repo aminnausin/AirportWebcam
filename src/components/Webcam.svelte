@@ -3,7 +3,7 @@
     import toast from 'svelte-french-toast';
     const IMAGE_URL = 'https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg';
     const RANDOM = new Date().getTime();
-    const DELAY = 0.5;
+    const DELAY = 0.75;
     let counter = 0;
     let buffer: HTMLImageElement; 
     let timeOut: number | null | undefined = null;

@@ -30,8 +30,6 @@
         Y9: 'DAT',
         AH: 'DAH',
         PJ: 'SPM',
-        OS: 'AUA',
-        LX: 'SHR',
         YN: 'CRQ',
         LX: 'SWR',
         TK: 'turkish',
@@ -78,13 +76,13 @@
         flightGate = CONFIG.dataType === 'departures' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
         
         airlineLogoSet = [
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '404.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png` : '404.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '404.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png` : '404.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : '404.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png` : '404.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png` : '404.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
         ]
         flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
 
@@ -122,13 +120,13 @@
     let flightGate = CONFIG.dataType === 'departures' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
     
     let airlineLogoSet = [
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '404.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png` : '404.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '404.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png` : '404.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : '404.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png` : '404.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png` : '404.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
     ]
     let flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
 

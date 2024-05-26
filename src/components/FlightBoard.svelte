@@ -2,6 +2,10 @@
 	import FlightTableRow from './FlightTableRow.svelte';
     export let airport = {'code' : 'yul', 'icao' : 'CYUL', 'radio': '_twr2', 'location': 'Montreal, Quebec, Canada'};
 
+    let CONFIG = {
+        dataType: 'departures'
+    };
+
     const currentDate = new Date();
     const formatMonth = (/** @type {string} */ str) => {
         return str.slice(0,3) + '.' + str.slice(3);
@@ -16,10 +20,6 @@
      * @type {Date | null}
      */
     let rawLastUpdate = null;
-
-    let CONFIG = {
-        dataType: 'departures'
-    };
     
     const handleUpdate = () => {
         // @ts-ignore
@@ -120,10 +120,23 @@
 
     const filterFlights = () => {
         // filteredFlights = rawFlights[selectedFlightSet];
-        console.log(searchQuery);
         filteredFlights = rawFlights[selectedFlightSet].filter((/** @type {{ [x: string]: string; }} */ flight) => {
-            let reg = new RegExp(searchQuery);
-            return reg.test(flight['flightNumber'])
+            let reg = new RegExp(searchQuery, 'i');
+            let flightRaw = `${CONFIG.dataType === 'departures' ? 
+                                `${flight['localisedScheduledDepartureTime']} 
+                                ${flight['arrivalAirportCode']}
+                                ${flight['arrivalAirportName']}
+                                ${flight['localisedEstimatedDepartureTime'] ?? ''}
+                                ${flight['arrivalGate'] ?? ''}`
+                            : 
+                                `${flight['localisedScheduledArrivalTime']}
+                                ${flight['departureAirportCode']}
+                                ${flight['departureAirportName']}
+                                ${flight['localisedEstimatedArrivalTime'] ?? ''}
+                                ${flight['boardingGate'] ?? ''}`}
+                            ${flight['airlineName']} 
+                            ${flight['flightNumber']}`
+            return reg.test(flightRaw)
         })
     }
 
