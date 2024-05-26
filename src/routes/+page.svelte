@@ -4,12 +4,23 @@
     import Webcam from '../components/Webcam.svelte';
     import FlightBoard from '../components/FlightBoard.svelte';
 
-
+    /**
+     * Swap between webcam types:
+     * - The YUL webcam switches between a youtube live video and an image based webcam 
+     *   occasionally and this function lets users swap between them as required.
+     */
     const handleFeedSwap = () => {
         liveCam = !liveCam;
     }
 
+    /**
+     * Swap Flight board and radio to another airport from the airports array
+     * @param index
+     */
     const handleAirportSwap = (/** @type {number} */ index) => {
+        if (airports[index] == selectedAirport) {
+            return;
+        }
         selectedAirport = airports[index]
     }
 
