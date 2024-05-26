@@ -145,7 +145,7 @@
 <div class="block-tableauVols w-full">
     <div class="tableauxvols-automaticupdate-wrapper overflow-hidden flex flex-col md:flex-row md:justify-between items-start gap-1 mb-2">
         <section data-enhance="automaticUpdate" class="flex flex-wrap items-center min-w-[66%]">
-            <div class="font-bold text-xl w-full align-middle tableauxvols-automaticupdate-label justify-start flex" id="airportIDHeader" use:titleUpdateTrigger={airport}>
+            <div class="font-bold text-xl w-full align-middle tableauxvols-automaticupdate-label justify-start flex flex-wrap" id="airportIDHeader" use:titleUpdateTrigger={airport}>
                 <span class="line-clamp-1">{title}</span>&nbsp;<span class="line-clamp-1">({filteredFlights.length} Results)</span>
             </div>
             <div class="font-bold text-xl align-middle tableauxvols-automaticupdate-label">
@@ -153,13 +153,13 @@
             </div>
             <div class="leading-7 align-middle h-full blockautomaticupdate-label">{lastUpdate}</div>
             <a class="tableauvols-automaticupdate-trigger cursor-pointer" href="/" on:click={handleUpdate}>
-                <span id="canvasloader-container-tTlE9tm1ge" style="display: none;" class="canvasloader-wrapper">
-                    <div id="canvasLoader-tTlE9tm18h" style="display: block;">
+                <span id="canvasloader-container-tTlE9tm1ge" class="canvasloader-wrapper hidden">
+                    <div id="canvasLoader-tTlE9tm18h" class="block">
                         <canvas width="16" height="16"></canvas>
-                        <canvas width="16" height="16" style="display: none;"></canvas>
+                        <canvas width="16" height="16" class="hidden"></canvas>
                     </div>
                 </span>
-                <span class="refresher icon after:content-['\E080'] px-2" style="display: block;">
+                <span class="refresher icon after:content-['\E080'] px-2 block">
                     <span class="hidden">Refresh flight information</span>
                 </span>
             </a>
