@@ -51,7 +51,36 @@
         LANDED: 'Landed',
         CANCELLED: 'Cancelled'
     }
+
+    function parseFlight() {
+        flightTime = CONFIG.dataType === 'departures' ? flight['localisedScheduledDepartureTime'] : flight['localisedScheduledArrivalTime'];
+        flightEstimatedTime = CONFIG.dataType === 'departures' ? flight['localisedEstimatedDepartureTime'] ?? '' : flight['localisedEstimatedArrivalTime'] ?? flightTime;
+
+        airlineID = airlineCodes[flight['airlineId']] ?? (airlineCodes[flight['flightNumber'].slice(0, 2)] ?? flight['airlineId']);
+        airlineCompany = flight['airlineName'];
+
+        flightNumber = flight['flightNumber'];
+        flightAirport = CONFIG.dataType === 'departures' ? flight['arrivalAirportCode'] : flight['departureAirportCode'];
+        flightAirportLong = CONFIG.dataType === 'departures' ? flight['arrivalAirportName'] : flight['departureAirportName'];
+        flightState = flightStates[flight['status']] ?? flight['status'];
+        flightGate = CONFIG.dataType === 'departures' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
         
+        airlineLogo = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '';
+        airlineLogoAlt = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '';
+        airlineLogoAltAlt = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : '';
+        flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
+    }
+        
+
+    function a(node, param) {
+        parseFlight();
+        return {
+            update(param) {
+                parseFlight();
+            },
+        };
+    }
+
     let flightTime = CONFIG.dataType === 'departures' ? flight['localisedScheduledDepartureTime'] : flight['localisedScheduledArrivalTime'];
     let flightEstimatedTime = CONFIG.dataType === 'departures' ? flight['localisedEstimatedDepartureTime'] ?? '' : flight['localisedEstimatedArrivalTime'] ?? flightTime;
 
@@ -70,7 +99,7 @@
     let flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
 </script>
 
-<tr class="tableauvols-row tab-skin1-row">
+<tr class="tableauvols-row tab-skin1-row" use:a={flight}>
     <td class="first tab-col1">
         <span class="hr" aria-hidden="true">
             todayflight</span>

@@ -72,14 +72,6 @@
     background: #01385d
 }
 
-.tableauxvols-showall {
-    margin-bottom: 18px;
-    font-size: .933em;
-    vertical-align: middle;
-    float: right;
-    position: relative
-}
-
 .icon:after {
     font-family: "adm-pictos-regular";
     font-variant: normal;

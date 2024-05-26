@@ -2,14 +2,13 @@
 	import FlightTableRow from './FlightTableRow.svelte';
     import { onMount } from "svelte";
     export let airport = {'code' : 'yul', 'icao' : 'CYUL', 'radio': '_twr2', 'location': 'Montreal, Quebec, Canada'};
-    const currentDate = new Date()
+    const currentDate = new Date();
     const formatMonth = (/** @type {string} */ str) => {
         return str.slice(0,3) + '.' + str.slice(3);
     }
 
     let dateToday = formatMonth(currentDate.toLocaleDateString('en-ca', { month:"short", day: "numeric"}));
     let dateTomorrow = formatMonth(new Date(Date.now() + 1000 * 3600 * 24).toLocaleDateString('en-ca', { month:"short", day: "numeric"}));
-
     let lastUpdate = 'a few seconds ago';
     // @ts-ignore
     /**
@@ -34,7 +33,15 @@
     };
 
     const loadFlightData = async () => {
-        flights = [];
+        rawFlights = [[], []];
+        /**
+         * @type {any[]}
+         */
+        let flightsToday = [];
+        /**
+         * @type {any[]}
+         */
+        let flightsTomorrow = [];
         let url = '';
         boardTitle = CONFIG.dataType === 'departures' ? 'Departures' : 'Arrivals';
         switch (CONFIG.dataType) {
@@ -49,9 +56,27 @@
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            flights = data[CONFIG.dataType] ?? [];
+            let rawFlightsCombined = data[CONFIG.dataType] ?? [];
+
+            for (let i = 0; i < rawFlightsCombined.length; i++) {
+                const flight = rawFlightsCombined[i];
+                let dateSource = CONFIG.dataType === 'departures' ? 'localisedScheduledDepartureTime' : 'localisedScheduledArrivalTime';
+                let flightDate = new Date(flight[dateSource]).toLocaleDateString([], { day: "numeric"});
+                if (flightDate == currentDate.toLocaleDateString([], { day: "numeric"})) {
+                    // @ts-ignore
+                    flightsToday = [...flightsToday, flight];
+                }
+                else{
+                    // @ts-ignore
+                    flightsTomorrow = [...flightsTomorrow, flight];
+                }
+            }
+
+            rawFlights = [flightsToday, flightsTomorrow];
+            filteredFlights = rawFlights[selectedFlightSet];
         }).catch(error => {
             console.log(error);
+            rawFlights = [[], []];
         });
     };
 
@@ -99,7 +124,9 @@
     /**
      * @type {any[]}
      */
-    let flights = [];
+    let rawFlights = [[],[]];
+    let selectedFlightSet = 0;
+    let filteredFlights = rawFlights[selectedFlightSet];
     let title = '';
     let boardTitle = '';
     /**
@@ -108,11 +135,11 @@
     let timeoutID;
 </script>
 
-<div class="block-tableauVols">
+<div class="block-tableauVols w-full">
     <div class="tableauxvols-automaticupdate-wrapper overflow-hidden flex justify-between items-start" >
-        <div data-enhance="automaticUpdate" class="flex flex-wrap items-center" data-automaticupdate-receiverevent="tableauvols-start" data-automaticupdate-type="serverside" data-automaticupdate-triggeredevent="tableauvols-update" data-automaticupdate-start="false" data-automaticupdate-trigger=".tableauvols-automaticupdate-trigger" style="color: #ffffff;">
+        <div data-enhance="automaticUpdate" class="flex flex-wrap items-center line-clamp-2" data-automaticupdate-receiverevent="tableauvols-start" data-automaticupdate-type="serverside" data-automaticupdate-triggeredevent="tableauvols-update" data-automaticupdate-start="false" data-automaticupdate-trigger=".tableauvols-automaticupdate-trigger" style="color: #ffffff;">
             <div class="font-bold text-xl w-full align-middle tableauxvols-automaticupdate-label" id="airportIDHeader" use:a={airport}>
-                {title} ({boardTitle})
+                {title} ({filteredFlights.length} Results)
             </div>
             <div class="font-bold text-xl align-middle tableauxvols-automaticupdate-label">
                 Last update :&nbsp;      
@@ -132,15 +159,18 @@
         </div>
 
 
-        <section>
-            <button id="tableauvols-show-arrivals" class="tableauxvols-showall text-[#0275c2] hover:text-[#005580]" on:click={(e) => {handleLoadFlightData('arrivals')}}>
-                <span class="icon icon-arrow-left after:content-['\E02A']" aria-hidden="true"></span>
-                <span class="hover:underline">See arrivals</span>
-            </button>
-            <button id="tableauvols-show-departures" class="tableauxvols-showall text-[#0275c2] hover:text-[#005580]" on:click={(e) => {handleLoadFlightData('departures')}}>
-                <span class="icon icon-arrow-left after:content-['\E02A']" aria-hidden="true"></span>
-                <span class="hover:underline">See departures</span>
-            </button>
+        <section class="flex gap-1 w-full justify-end">
+            {#if CONFIG.dataType == 'departures'}
+                <button id="tableauvols-show-arrivals" class=" inline-block text-[#0275c2] hover:text-[#005580]" on:click={(e) => {handleLoadFlightData('arrivals')}}>
+                    <span class="icon icon-arrow-left after:content-['\E02A']" aria-hidden="true"></span>
+                    <span class="hover:underline">See arrivals</span>
+                </button>
+            {:else}
+                <button id="tableauvols-show-departures" class=" inline-block text-[#0275c2] hover:text-[#005580]" on:click={(e) => {handleLoadFlightData('departures')}}>
+                    <span class="icon icon-arrow-left after:content-['\E02A']" aria-hidden="true"></span>
+                    <span class="hover:underline">See departures</span>
+                </button>
+            {/if}
         </section>
     </div>
 
@@ -155,11 +185,11 @@
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper tableauvols-wrapper">
         <div class="flex justify-between items-center mb-5">
             <div class="w-72 flex divide-x divide-white">
-                <button class="btn-action dark w-full">
+                <button class={`btn-action w-full ${selectedFlightSet === 0 ? 'dark' : ''}`} on:click={() => {selectedFlightSet = 0; filteredFlights = rawFlights[selectedFlightSet]; filteredFlights = filteredFlights;}}>
                     <span class="tableauvols-filters-day w-full">today</span>
                     <span class="tableauvols-filters-date w-full">({dateToday})</span>
                 </button>
-                <button class="btn-action w-full">
+                <button class={`btn-action w-full ${selectedFlightSet === 1 ? 'dark' : ''}`} on:click={() => {selectedFlightSet = 1; filteredFlights = rawFlights[selectedFlightSet]; filteredFlights = filteredFlights;}}>
                     <span class="tableauvols-filters-day w-full">tomorrow</span>
                     <span class="tableauvols-filters-date w-full">({dateTomorrow})</span>
                 </button>
@@ -269,18 +299,13 @@
                         </tr>
                     </thead>
                     <tbody class="tab-skin1-tbody" aria-live="polite" aria-relevant="all" id="tableauvols-tbody">
-                        {#each flights as flight}
+                        {#each filteredFlights as flight}
                             <FlightTableRow CONFIG={CONFIG} flight={flight}/>
+                            <!-- <li>{flight['flightNumber']}</li> -->
                         {/each}
                     </tbody>    
                 </table>
             </div>
         </section>
     </div>   
-    <div class="tableauvols-resize withShadow hidden">
-        <div>
-            <a href="#" class="dispAll" style="display: inline;"><span class="icon icon-arrow-down"></span> <span>See more flights</span></a>
-            <a href="#" class="dispLess" style="display: none;"><span class="icon icon-arrow-up"></span> <span>See fewer flights</span></a>
-        </div>
-    </div> 
 </div>              
