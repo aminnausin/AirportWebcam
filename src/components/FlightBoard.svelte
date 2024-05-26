@@ -205,11 +205,11 @@
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper tableauvols-wrapper">
         <div class="flex flex-col md:flex-row justify-between items-center mb-5 gap-2">
             <div class="w-full md:w-72 flex divide-x divide-white">
-                <button class={`btn-action w-full ${selectedFlightSet === 0 ? 'dark' : ''}`} on:click={() => {selectedFlightSet = 0; filteredFlights = rawFlights[selectedFlightSet]; filteredFlights = filteredFlights;}}>
+                <button class={`btn-action w-full ${selectedFlightSet === 0 ? 'dark' : ''}`} on:click={() => {selectedFlightSet = 0; filteredFlights = rawFlights[selectedFlightSet]; filterFlights();}}>
                     <span class="tableauvols-filters-day w-full">today</span>
                     <span class="tableauvols-filters-date w-full line-clamp-1">({dateToday})</span>
                 </button>
-                <button class={`btn-action w-full ${selectedFlightSet === 1 ? 'dark' : ''}`} on:click={() => {selectedFlightSet = 1; filteredFlights = rawFlights[selectedFlightSet]; filteredFlights = filteredFlights;}}>
+                <button class={`btn-action w-full ${selectedFlightSet === 1 ? 'dark' : ''}`} on:click={() => {selectedFlightSet = 1; filteredFlights = rawFlights[selectedFlightSet]; filterFlights();}}>
                     <span class="tableauvols-filters-day w-full">tomorrow</span>
                     <span class="tableauvols-filters-date w-full line-clamp-1">({dateTomorrow})</span>
                 </button>
