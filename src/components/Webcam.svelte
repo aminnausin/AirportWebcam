@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+    import toast from 'svelte-french-toast';
     let imageUrl = 'https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg';
     let random = new Date().getTime();
     let delay = 0.5;
@@ -35,6 +36,7 @@
 
     export function forceUpdate() {
         if(timeOut !== null) clearTimeout(timeOut);
+        toast.success('Webcam restarted!');
         LoadNextImage();
     }
 
