@@ -66,12 +66,15 @@
                     </button>
                 </div>
             </div>
-            <div class="flex items-center w-full justify-between gap-2 h-fit xl:mt-4">
-                {#each airports as airport, idx}
+            <div class="w-full flex flex-col gap-2 h-fit xl:mt-4">
+                <h6 class="w-full font-bold text-sm">Select Airport for Radio and Flights</h6>
+                <div class="flex items-center w-full justify-between gap-2 h-fit">
+                    {#each airports as airport, idx}
                     <button class={`font-medium rounded-md ${selectedAirport === airport ? 'bg-red-700 text-white' : ''} bg-neutral-100 hover:bg-red-800 hover:text-white p-2 text-black h-fit line-clamp-1 w-full`} on:click={() => {handleAirportSwap(idx)}}>
                         {airport.code?.toLocaleUpperCase()}
                     </button>
-                {/each}
+                    {/each}
+                </div>
             </div>
         </div>
     </section>

@@ -1,7 +1,7 @@
 <script>
 	import FlightTableRow from './FlightTableRow.svelte';
-    import { onMount } from "svelte";
     export let airport = {'code' : 'yul', 'icao' : 'CYUL', 'radio': '_twr2', 'location': 'Montreal, Quebec, Canada'};
+
     const currentDate = new Date();
     const formatMonth = (/** @type {string} */ str) => {
         return str.slice(0,3) + '.' + str.slice(3);
@@ -10,6 +10,7 @@
     let dateToday = formatMonth(currentDate.toLocaleDateString('en-ca', { month:"short", day: "numeric"}));
     let dateTomorrow = formatMonth(new Date(Date.now() + 1000 * 3600 * 24).toLocaleDateString('en-ca', { month:"short", day: "numeric"}));
     let lastUpdate = 'a few seconds ago';
+
     // @ts-ignore
     /**
      * @type {Date | null}
@@ -73,16 +74,12 @@
             }
 
             rawFlights = [flightsToday, flightsTomorrow];
-            filteredFlights = rawFlights[selectedFlightSet];
+            filterFlights();
         }).catch(error => {
             console.log(error);
             rawFlights = [[], []];
         });
     };
-
-    onMount(() => {
-        
-    });
 
     /**
      * @param {any} node
@@ -121,6 +118,15 @@
         }, 3000);
     }
 
+    const filterFlights = () => {
+        // filteredFlights = rawFlights[selectedFlightSet];
+        console.log(searchQuery);
+        filteredFlights = rawFlights[selectedFlightSet].filter((/** @type {{ [x: string]: string; }} */ flight) => {
+            let reg = new RegExp(searchQuery);
+            return reg.test(flight['flightNumber'])
+        })
+    }
+
     /**
      * @type {any[]}
      */
@@ -129,6 +135,7 @@
     let filteredFlights = rawFlights[selectedFlightSet];
     let title = '';
     let boardTitle = '';
+    let searchQuery = '';
     /**
      * @type {number | undefined}
      */
@@ -136,10 +143,10 @@
 </script>
 
 <div class="block-tableauVols w-full">
-    <div class="tableauxvols-automaticupdate-wrapper overflow-hidden flex justify-between items-start" >
-        <div data-enhance="automaticUpdate" class="flex flex-wrap items-center line-clamp-2" data-automaticupdate-receiverevent="tableauvols-start" data-automaticupdate-type="serverside" data-automaticupdate-triggeredevent="tableauvols-update" data-automaticupdate-start="false" data-automaticupdate-trigger=".tableauvols-automaticupdate-trigger" style="color: #ffffff;">
-            <div class="font-bold text-xl w-full align-middle tableauxvols-automaticupdate-label" id="airportIDHeader" use:titleUpdateTrigger={airport}>
-                {title} ({filteredFlights.length} Results)
+    <div class="tableauxvols-automaticupdate-wrapper overflow-hidden flex flex-col md:flex-row md:justify-between items-start gap-1 mb-2">
+        <section data-enhance="automaticUpdate" class="flex flex-wrap items-center min-w-[66%]">
+            <div class="font-bold text-xl w-full align-middle tableauxvols-automaticupdate-label justify-start flex" id="airportIDHeader" use:titleUpdateTrigger={airport}>
+                <span class="line-clamp-1">{title}</span>&nbsp;<span class="line-clamp-1">({filteredFlights.length} Results)</span>
             </div>
             <div class="font-bold text-xl align-middle tableauxvols-automaticupdate-label">
                 Last update :&nbsp;      
@@ -156,19 +163,19 @@
                     <span class="hidden">Refresh flight information</span>
                 </span>
             </a>
-        </div>
+        </section>
 
 
-        <section class="flex gap-1 w-full justify-end">
+        <section class="flex gap-1 w-full md:justify-end md:h-full md:items-end">
             {#if CONFIG.dataType == 'departures'}
                 <button id="tableauvols-show-arrivals" class=" inline-block text-[#0275c2] hover:text-[#005580]" on:click={(e) => {handleLoadFlightData('arrivals')}}>
-                    <span class="icon icon-arrow-left after:content-['\E02A']" aria-hidden="true"></span>
-                    <span class="hover:underline">See arrivals</span>
+                    <span class="icon icon-arrow-left after:content-['\E02A'] align-middle" aria-hidden="true"></span>
+                    <span class="hover:underline align-middle">See arrivals</span>
                 </button>
             {:else}
                 <button id="tableauvols-show-departures" class=" inline-block text-[#0275c2] hover:text-[#005580]" on:click={(e) => {handleLoadFlightData('departures')}}>
-                    <span class="icon icon-arrow-left after:content-['\E02A']" aria-hidden="true"></span>
-                    <span class="hover:underline">See departures</span>
+                    <span class="icon icon-arrow-left after:content-['\E02A'] align-middle" aria-hidden="true"></span>
+                    <span class="hover:underline align-middle">See departures</span>
                 </button>
             {/if}
         </section>
@@ -183,20 +190,20 @@
     neutral -->
 
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper tableauvols-wrapper">
-        <div class="flex justify-between items-center mb-5">
-            <div class="w-72 flex divide-x divide-white">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-5 gap-2">
+            <div class="w-full md:w-72 flex divide-x divide-white">
                 <button class={`btn-action w-full ${selectedFlightSet === 0 ? 'dark' : ''}`} on:click={() => {selectedFlightSet = 0; filteredFlights = rawFlights[selectedFlightSet]; filteredFlights = filteredFlights;}}>
                     <span class="tableauvols-filters-day w-full">today</span>
-                    <span class="tableauvols-filters-date w-full">({dateToday})</span>
+                    <span class="tableauvols-filters-date w-full line-clamp-1">({dateToday})</span>
                 </button>
                 <button class={`btn-action w-full ${selectedFlightSet === 1 ? 'dark' : ''}`} on:click={() => {selectedFlightSet = 1; filteredFlights = rawFlights[selectedFlightSet]; filteredFlights = filteredFlights;}}>
                     <span class="tableauvols-filters-day w-full">tomorrow</span>
-                    <span class="tableauvols-filters-date w-full">({dateTomorrow})</span>
+                    <span class="tableauvols-filters-date w-full line-clamp-1">({dateTomorrow})</span>
                 </button>
             </div>
-            <div id="DataTables_Table_filter" class="text-[#6c757b] border-solid border border-[#bcc1c4]">
+            <div id="DataTables_Table_filter" class="w-full md:w-auto text-[#6c757b] border-solid border border-[#bcc1c4]">
                 <label for="search" class="relative block h-full  p-0 leading-5">
-                    <input type="text" id="search" placeholder="Search for flights ..." class="focus-within:outline-none w-full h-full font-light py-4 ps-6 pe-14">
+                    <input type="text" id="search" placeholder="Search for flights ..." class="focus-within:outline-none w-full h-full font-light py-4 ps-6 pe-14" bind:value={searchQuery} on:input={() => {filterFlights();}} >
                     <span class="hidden">Search for flights ...</span>
                     <button class="fakebutton absolute h-full right-0 top-0 cursor-pointer icon after:content-['\E037'] text-4xl leading-5" aria-hidden="true" aria-label="Search" disabled={true}></button>
                 </label>
