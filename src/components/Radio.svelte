@@ -69,7 +69,7 @@
 
     let radioSrc = `https://s1-bos.liveatc.net/${airport.icao.toLocaleLowerCase()}${airport.radio}`;
 </script>
-<div class="flex gap-2 flex-col w-2/3 lg:w-full h-fit overflow-hidden">
+<div class="flex gap-2 flex-col w-full sm:w-2/3 lg:w-full h-fit overflow-hidden mb-12 sm:mb-0">
 
     <h3 class="text-base leading-[110%] font-light" style="font-family: Helvetica, sans-serif">You are listening to: <br>{airport.icao} Tower - {airport.location}</h3>
     <h3 class="text-xs leading-[110%] font-mono font-light text-[#adadad]" use:a={airport}>{metar}</h3>
