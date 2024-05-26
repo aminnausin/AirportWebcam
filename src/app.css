@@ -72,14 +72,6 @@
     background: #01385d
 }
 
-.tableauxvols-showall {
-    margin-bottom: 18px;
-    font-size: .933em;
-    vertical-align: middle;
-    float: right;
-    position: relative
-}
-
 .icon:after {
     font-family: "adm-pictos-regular";
     font-variant: normal;
@@ -89,6 +81,18 @@
     -webkit-font-smoothing: antialiased;
     /* content: '\E04C'; */
     vertical-align: middle;
+}
+
+.icon-arrow-up:after {
+    content: '\E02B'
+}
+
+.icon-arrow-down:after {
+    content: '\E02C'
+}
+
+.icon-arrow-updown:after {
+    content: '\E05C'
 }
 
 a {
