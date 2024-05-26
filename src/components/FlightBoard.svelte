@@ -16,11 +16,10 @@
     let lastUpdate = 'a few seconds ago';
 
     // @ts-ignore
-    /**
-     * @type {Date | null}
-     */
     let rawLastUpdate = null;
     
+    let sort = [0, 0, 0, 0, 0, 0, 0]; // Sort states by column (1 for asc, 2 for desc, 0 for not in use)
+
     const handleUpdate = () => {
         // @ts-ignore
         rawLastUpdate = new Date();
@@ -138,6 +137,74 @@
                             ${flight['flightNumber']}`
             return reg.test(flightRaw)
         })
+        sort = [0,0,0,0,0,0,0];
+    }
+
+    const sortTrigger = (/** @type {number} */ index) => {
+        for (let i = 0; i < sort.length; i++) {
+            if(i !== index) sort[i] = 0
+        }
+
+        sort[index] += 1;
+        if(sort[index] > 2) sort[index] = 1;
+
+        let flightStates = CONFIG.dataType == 'departures' ? {
+            IN_AIR: 'Departed',
+            OUT_GATE: 'Taxiing',
+            IN_GATE: 'Boarding',
+            SCHEDULED: '-',
+            DELAYED: 'Delayed',
+            LANDED: 'Landed',
+            CANCELLED: 'Cancelled'
+        } : {
+            IN_AIR: 'On Route',
+            IN_GATE: 'Arrived',
+            OUT_GATE: 'Advanced',
+            SCHEDULED: 'On Time',
+            DELAYED: 'Delayed',
+            LANDED: 'Landed',
+            CANCELLED: 'Cancelled'
+        }
+
+        filteredFlights = filteredFlights.sort((/** @type {{ [x: string]: string; }} */ flightA, /** @type {{ [x: string]: string; }} */ flightB) => {
+            let dir = sort[index];
+            // @ts-ignore
+            let flightStateA = flightStates[flightA['status']] ?? flightA['status'];
+            // @ts-ignore
+            let flightStateB = flightStates[flightB['status']] ?? flightB['status'];
+
+            switch (index) {
+                case 0:
+                    if(CONFIG.dataType === 'departures'){
+                        return dir == 1 ? flightA['localisedScheduledDepartureTime']?.localeCompare(flightB['localisedScheduledDepartureTime']) : -flightA['localisedScheduledDepartureTime']?.localeCompare(flightB['localisedScheduledDepartureTime']);
+                    }
+                    else return dir == 1 ? flightA['localisedScheduledArrivalTime']?.localeCompare(flightB['localisedScheduledArrivalTime']) : -flightA['localisedScheduledArrivalTime']?.localeCompare(flightB['localisedScheduledArrivalTime']);
+                case 1:
+                    if(CONFIG.dataType === 'departures'){
+                        return dir == 1 ? flightA['localisedEstimatedDepartureTime']?.localeCompare(flightB['localisedEstimatedDepartureTime']) : -flightA['localisedEstimatedDepartureTime']?.localeCompare(flightB['localisedEstimatedDepartureTime']);
+                    }
+                    else return dir == 1 ? flightA['localisedEstimatedArrivalTime']?.localeCompare(flightB['localisedEstimatedArrivalTime']) : -flightA['localisedEstimatedArrivalTime']?.localeCompare(flightB['localisedEstimatedArrivalTime']);
+                case 2:
+                    return dir == 1 ? flightA['airlineName']?.localeCompare(flightB['airlineName']) : -flightA['airlineName']?.localeCompare(flightB['airlineName']);
+                case 3:
+                    return dir == 1 ? flightA['flightNumber']?.localeCompare(flightB['flightNumber']) : -flightA['flightNumber']?.localeCompare(flightB['flightNumber']);
+                case 4:
+                    if(CONFIG.dataType === 'departures'){
+                        return dir == 1 ? flightA['arrivalAirportName']?.localeCompare(flightB['arrivalAirportName']) : -flightA['arrivalAirportName']?.localeCompare(flightB['arrivalAirportName']);
+                    }
+                    else return dir == 1 ? flightA['departureAirportName']?.localeCompare(flightB['departureAirportName']) : -flightA['departureAirportName']?.localeCompare(flightB['departureAirportName']);
+                case 5:
+                    return dir == 1 ? flightStateA?.localeCompare(flightStateB) : -flightStateA?.localeCompare(flightStateB);
+                case 6:
+                    if(CONFIG.dataType === 'departures'){
+                        return dir == 1 ? flightA['boardingGate']?.localeCompare(flightB['boardingGate']) : -flightA['boardingGate']?.localeCompare(flightB['boardingGate']);
+                    }
+                    else return dir == 1 ? flightA['arrivalGate']?.localeCompare(flightB['arrivalGate']) : -flightA['arrivalGate']?.localeCompare(flightB['arrivalGate']);
+                default:
+                    console.log('help');
+                    break;
+            }
+        });
     }
 
     /**
@@ -223,47 +290,47 @@
             </div>
         </div>
         <section class="relative">
-            <div class="dataTables_scrollHead ui-state-default overflow-hidden border-0 w-full shadow-lg rounded-t-md z-10">
+            <div class="dataTables_scrollHead overflow-hidden border-0 w-full shadow-lg rounded-t-md z-10">
                 <div class="dataTables_scrollHeadInner">
                     <table id="tableauvols-main" class="tab tab-skin1 tableauvols tableauvols-complexe tableauvols-departure enhance enhance-flightBoardSortable-applied dataTable">
                         <thead class="tab-skin1-thead">
                             {#if CONFIG.dataType === 'departures'}
                                 <tr id="tableauvols-departure-thead">
-                                    <th class="first tab-col1 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 12px;" aria-label="Sched: activate to sort column ascending">
+                                    <th class="first tab-col1" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 12px;" aria-label="Sched: activate to sort column ascending" on:click={() => {sortTrigger(0)}}>
                                         <div class="DataTables_sort_wrapper">
-                                            Sched<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
+                                            Sched<span class={`DataTables_sort_icon icon ${sort[0] ? (sort[0] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span>
                                         </div>
                                     </th>
-                                    <th class="tab-col2 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 11px;" aria-label="Revised: activate to sort column ascending">
+                                    <th class="tab-col2" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 11px;" aria-label="Revised: activate to sort column ascending" on:click={() => {sortTrigger(1)}}>
                                         <div class="DataTables_sort_wrapper">
-                                            Revised<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
+                                            Revised<span class={`DataTables_sort_icon icon ${sort[1] ? (sort[1] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span>
                                         </div>
                                     </th>
-                                    <th class="tab-col3 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 15px;" aria-label="Flight: activate to sort column ascending">
+                                    <th class="tab-col3" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 15px;" aria-label="Flight: activate to sort column ascending" on:click={() => {sortTrigger(2)}}>
                                         <div class="DataTables_sort_wrapper">
                                             <span class="tableauvols-voltitle">Flight</span>
-                                            <span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
+                                            <span class={`DataTables_sort_icon icon ${sort[2] ? (sort[2] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span>
                                         </div>
                                     </th>
-                                    <th class="tab-col4 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 11px;" aria-sort="descending" aria-label="Flight number: activate to sort column ascending">
+                                    <th class="tab-col4" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 11px;" aria-sort="descending" aria-label="Flight number: activate to sort column ascending" on:click={() => {sortTrigger(3)}}>
                                         <div class="DataTables_sort_wrapper">
                                             <span class="tableauvols-voltitle2 visually-hidden">Flight number</span>
-                                            <span class="DataTables_sort_icon icon icon-arrow-down icon-sortable-desc"></span>
+                                            <span class={`DataTables_sort_icon icon ${sort[3] ? (sort[3] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span>
                                         </div>
                                     </th>
-                                    <th class="tab-col5 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 17px;" aria-label="Destination: activate to sort column ascending">
+                                    <th class="tab-col5" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 17px;" aria-label="Destination: activate to sort column ascending" on:click={() => {sortTrigger(4)}}>
                                         <div class="DataTables_sort_wrapper">
-                                            Destination<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
+                                            Destination<span class={`DataTables_sort_icon icon ${sort[4] ? (sort[4] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span>
                                         </div>
                                     </th>
-                                    <th class="tab-col6 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 13px;" aria-label="State: activate to sort column ascending">
+                                    <th class="tab-col6" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 13px;" aria-label="State: activate to sort column ascending" on:click={() => {sortTrigger(5)}}>
                                         <div class="DataTables_sort_wrapper">
-                                            State<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
+                                            State<span class={`DataTables_sort_icon icon ${sort[5] ? (sort[5] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span>
                                         </div>
                                     </th>
-                                    <th class="tab-col8 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 12px;" aria-label="Gate: activate to sort column ascending">
+                                    <th class="tab-col8" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 12px;" aria-label="Gate: activate to sort column ascending" on:click={() => {sortTrigger(6)}}>
                                         <div class="DataTables_sort_wrapper">
-                                            Gate<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
+                                            Gate<span class={`DataTables_sort_icon icon ${sort[6] ? (sort[6] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span>
                                         </div>
                                     </th>
                                     <th class="last tab-col7 no-sortable tableauvols-suivi-header" rowspan="1" colspan="1" style="width: 10px;">
@@ -272,30 +339,30 @@
                                 </tr>
                             {:else}
                                 <tr id="tableauvols-arrival-thead">
-                                    <th class="first tab-col1 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Sched: activate to sort column descending" style="width: 13px;">
-                                        <div class="DataTables_sort_wrapper">Sched<span class="DataTables_sort_icon icon icon-arrow-up icon-sortable-asc"></span></div>
+                                    <th class="first tab-col1" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Sched: activate to sort column descending" style="width: 13px;" on:click={() => {sortTrigger(0)}}>
+                                        <div class="DataTables_sort_wrapper">Sched<span class={`DataTables_sort_icon icon ${sort[1] ? (sort[1] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span></div>
                                     </th>
-                                    <th class="tab-col2 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Revised: activate to sort column ascending" style="width: 12px;">
-                                        <div class="DataTables_sort_wrapper">Revised<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span></div>
+                                    <th class="tab-col2" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Revised: activate to sort column ascending" style="width: 12px;" on:click={() => {sortTrigger(1)}}>
+                                        <div class="DataTables_sort_wrapper">Revised<span class={`DataTables_sort_icon icon ${sort[1] ? (sort[1] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span></div>
                                     </th>
-                                    <th class="tab-col3 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Flight: activate to sort column ascending" style="width: 16px;">
-                                        <div class="DataTables_sort_wrapper"><span class="tableauvols-voltitle">Flight</span><span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span></div>
+                                    <th class="tab-col3" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Flight: activate to sort column ascending" style="width: 16px;" on:click={() => {sortTrigger(2)}}>
+                                        <div class="DataTables_sort_wrapper"><span class="tableauvols-voltitle">Flight</span><span class={`DataTables_sort_icon icon ${sort[2] ? (sort[2] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span></div>
                                     </th>
-                                    <th class="tab-col4 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Flight number: activate to sort column ascending" style="width: 9px;">
-                                        <div class="DataTables_sort_wrapper"><span class="tableauvols-voltitle2 visually-hidden">Flight number</span><span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span></div>
+                                    <th class="tab-col4" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Flight number: activate to sort column ascending" style="width: 9px;" on:click={() => {sortTrigger(3)}}>
+                                        <div class="DataTables_sort_wrapper"><span class="tableauvols-voltitle2 visually-hidden">Flight number</span><span class={`DataTables_sort_icon icon ${sort[3] ? (sort[3] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span></div>
                                     </th>
-                                    <th class="tab-col5 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Origin: activate to sort column ascending" style="width: 21px;">
-                                        <div class="DataTables_sort_wrapper">Origin<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span></div>
+                                    <th class="tab-col5" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="Origin: activate to sort column ascending" style="width: 21px;" on:click={() => {sortTrigger(4)}}>
+                                        <div class="DataTables_sort_wrapper">Origin<span class={`DataTables_sort_icon icon ${sort[4] ? (sort[4] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span></div>
                                     </th>
-                                    <th class="tab-col6 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="State: activate to sort column ascending" style="width: 16px;">
-                                        <div class="DataTables_sort_wrapper">State<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span></div>
+                                    <th class="tab-col6" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="State: activate to sort column ascending" style="width: 16px;" on:click={() => {sortTrigger(5)}}>
+                                        <div class="DataTables_sort_wrapper">State<span class={`DataTables_sort_icon icon ${sort[5] ? (sort[5] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span></div>
                                     </th>
-                                    <th class="tab-col8 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 12px;" aria-label="Gate: activate to sort column ascending">
+                                    <th class="tab-col8" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="width: 12px;" aria-label="Gate: activate to sort column ascending" on:click={() => {sortTrigger(6)}}>
                                         <div class="DataTables_sort_wrapper">
-                                            Gate<span class="DataTables_sort_icon icon icon-arrow-updown icon-sortable-desactive"></span>
+                                            Gate<span class={`DataTables_sort_icon icon ${sort[6] ? (sort[6] == 1 ? 'icon-arrow-up' : 'icon-arrow-down') : 'icon-arrow-updown'} icon-sortable-desactive`}></span>
                                         </div>
                                     </th>
-                                    <th class="last tab-col7 no-sortable ui-state-default tableauvols-suivi-header" role="columnheader" rowspan="1" colspan="1" aria-label="Follow" style="width: 13px;">
+                                    <th class="last tab-col7 no-sortable tableauvols-suivi-header" role="columnheader" rowspan="1" colspan="1" aria-label="Follow" style="width: 13px;">
                                         <div class="DataTables_sort_wrapper">Follow<span class="DataTables_sort_icon"></span></div>
                                     </th>
                                 </tr>
@@ -308,13 +375,13 @@
                 <table class="tab tab-skin1 tableauvols tableauvols-complexe tableauvols-departure enhance enhance-flightBoardSortable-applied dataTable" data-flightboardsortable-itemsbypage="3000" data-flightboardsortable-type="all" data-flightboardsortable-filtersupdate="tableauvols-filtersupdate" data-flightboardsortable-triggeredevent="tableauvols-start" data-flightboardsortable-receiverevent="tableauvols-update" data-flightboardsortable-data="departure" data-flightboardsortable-mobile-show-all="true" data-enhance="flightBoardSortable" style="margin-left: 0px; width: 100%;">
                     <thead class="tab-skin1-thead">
                         <tr style="height: 0px;">
-                            <th class="first tab-col1 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 12px;" aria-label="Sched: activate to sort column ascending"></th>
-                            <th class="tab-col2 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 11px;" aria-label="Revised: activate to sort column ascending"></th>
-                            <th class="tab-col3 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 15px;" aria-label="Flight: activate to sort column ascending"></th>
-                            <th class="tab-col4 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 11px;" aria-sort="descending" aria-label="Flight number: activate to sort column ascending"></th>
-                            <th class="tab-col5 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 17px;" aria-label="Destination: activate to sort column ascending"></th>
-                            <th class="tab-col6 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 13px;" aria-label="State: activate to sort column ascending"></th>
-                            <th class="tab-col8 ui-state-default" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 12px;" aria-label="Gate: activate to sort column ascending"></th>
+                            <th class="first tab-col1" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 12px;" aria-label="Sched: activate to sort column ascending"></th>
+                            <th class="tab-col2" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 11px;" aria-label="Revised: activate to sort column ascending"></th>
+                            <th class="tab-col3" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 15px;" aria-label="Flight: activate to sort column ascending"></th>
+                            <th class="tab-col4" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 11px;" aria-sort="descending" aria-label="Flight number: activate to sort column ascending"></th>
+                            <th class="tab-col5" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 17px;" aria-label="Destination: activate to sort column ascending"></th>
+                            <th class="tab-col6" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 13px;" aria-label="State: activate to sort column ascending"></th>
+                            <th class="tab-col8" role="columnheader" tabindex="0" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 12px;" aria-label="Gate: activate to sort column ascending"></th>
                             <th class="last tab-col7 no-sortable tableauvols-suivi-header" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 10px;"></th>
                         </tr>
                     </thead>

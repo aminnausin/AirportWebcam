@@ -81,15 +81,18 @@
         flightState = flightStates[flight['status']] ?? flight['status'];
         flightGate = CONFIG.dataType === 'departures' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
         
-        airlineLogoSet = [
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+        let airlineLogoSet = [
+            '403.png'
         ]
+        // airlineLogoSet = [
+        //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png`,
+        //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png`,
+        //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png`,
+        //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png`,
+        //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png`,
+        //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png`,
+        //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png`,
+        // ]
         flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
 
         airlineLogoIndex = 0;
@@ -123,16 +126,19 @@
     let flightAirportLong = CONFIG.dataType === 'departures' ? flight['arrivalAirportName'] : flight['departureAirportName'];
     let flightState = flightStates[flight['status']] ?? flight['status'];
     let flightGate = CONFIG.dataType === 'departures' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
-    
+
     let airlineLogoSet = [
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
-        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png` : 'https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/FLAIR.png',
+        '403.png'
     ]
+    // let airlineLogoSet = [
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png`,
+    // ]
     let flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
 
     let airlineLogoIndex = 0;
@@ -174,7 +180,7 @@
     {/if}
     <td class="tab-col3">
         <img 
-            class="tableauxvols-flightdetails-logo-small" 
+            class="tableauxvols-flightdetails-logo-small object-contain" 
             src="{airlineLogoSet[airlineLogoIndex]}" 
             alt="{airlineCompany}" 
             on:error={() => {airlineLogoIndex = airlineLogoIndex < airlineLogoSet.length - 1 ? airlineLogoIndex + 1 : airlineLogoIndex;}}>
