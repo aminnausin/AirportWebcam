@@ -77,10 +77,19 @@
         flightState = flightStates[flight['status']] ?? flight['status'];
         flightGate = CONFIG.dataType === 'departures' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
         
-        airlineLogo = airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '';
-        airlineLogoAlt = airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '';
-        airlineLogoAltAlt = airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : '';
+        airlineLogoSet = [
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '404.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png` : '404.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '404.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png` : '404.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : '404.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png` : '404.png',
+            airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png` : '404.png',
+        ]
         flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
+
+        airlineLogoIndex = 0;
+        expanded = false;
     }
         
     /**
@@ -97,6 +106,7 @@
         };
     }
 
+
     // Flight Data
     
     let flightTime = CONFIG.dataType === 'departures' ? flight['localisedScheduledDepartureTime'] : flight['localisedScheduledArrivalTime'];
@@ -111,13 +121,22 @@
     let flightState = flightStates[flight['status']] ?? flight['status'];
     let flightGate = CONFIG.dataType === 'departures' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
     
-    let airlineLogo = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '';
-    let airlineLogoAlt = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '';
-    let airlineLogoAltAlt = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : '';
+    let airlineLogoSet = [
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '404.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png` : '404.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '404.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png` : '404.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : '404.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png` : '404.png',
+        airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png` : '404.png',
+    ]
     let flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
+
+    let airlineLogoIndex = 0;
+    let expanded = false;
 </script>
 
-<tr class="tableauvols-row tab-skin1-row" use:updateFlightDataTrigger={flight}>
+<tr class="tableauvols-row tab-skin1-row" use:updateFlightDataTrigger={flight} on:click={() => {expanded = !expanded;}}>
     <td class="first tab-col1">
         <span class="hr" aria-hidden="true">
             todayflight</span>
@@ -153,9 +172,9 @@
     <td class="tab-col3">
         <img 
             class="tableauxvols-flightdetails-logo-small" 
-            src="{airlineLogo}" 
+            src="{airlineLogoSet[airlineLogoIndex]}" 
             alt="{airlineCompany}" 
-            onerror='this.onerror=null;this.src="{airlineLogoAlt}";'>
+            on:error={() => {airlineLogoIndex = airlineLogoIndex < airlineLogoSet.length - 1 ? airlineLogoIndex + 1 : airlineLogoIndex;}}>
         <span class="hidden text-for-search" aria-hidden="true">Company {airlineCompany} </span>
     </td>
     <td class="tab-col4 text-[#0abbff] font-bold">
@@ -194,3 +213,77 @@
         </a>
     </td>
 </tr>
+{#if expanded}
+    <!-- content here -->
+    <tr class="bg-[#303437]">
+        <td class="cursor-default hover:bg-[#303437]" colspan="8">
+            <div class="tableauxvols-flightdetails flex" colspan="8">
+                <div class="tableauxvols-flightdetails-left w-1/6 pl-2 pr-3 md:w-48 md:pl-5 md:pr-7">
+                    <img
+                        class={`w-full h-12 object-contain object-center`}
+                        src="{airlineLogoSet[airlineLogoIndex]}" 
+                        alt="{airlineCompany}" 
+                        on:error={() => {airlineLogoIndex = airlineLogoIndex < airlineLogoSet.length - 1 ? airlineLogoIndex + 1 : airlineLogoIndex;}}
+                    />
+                    <span class="tableauxvols-flightdetails-flight text-right block">Flight</span>
+                    <span class="block text-right text-[1.4rem] md:text-[1.8rem] font-bold pb-8 text-[#0abbff]">{flightNumber}</span>
+                    <a href="{flightFollow}" class="block text-right pl-6 relative align-middle">
+                        <span class="icon after:content-['\E011'] text-[1.9em] text-[#0abbff] -left-1 -top-3 absolute"aria-hidden="true"></span>
+                        <span class="w-full leading-[125%] text-[#0abbff] text-base ">Track by SMS 
+                            <span class="hidden">{flightNumber}</span>
+                        </span>
+                    </a>
+                </div>
+                <ul class="tableauxvols-flightdetails-right w-full">
+                    <li class="py-2.5 border-b border-solid border-[#3c4144] tableauxvols-flightdetails-destination">
+                        <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">To</div>
+                        <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">{flightAirportLong}</div>
+                    </li>
+                    <li class="py-2.5 border-b border-solid border-[#3c4144] tableauxvols-flightdetails-hourswrapper">
+                        <span class="tableauxvols-flightdetails-icons icon icon-heures"></span>
+                        <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">
+                            Departure time
+                        </div>
+                        <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
+                            <span class="tableauxvols-flightdetails-hours tableauxvols-normal">{flightTime.slice(-5)}</span>
+                            <span class="tableauxvols-flightdetails-hoursrevised">{new Date(flightTime).toLocaleDateString('en-ca', {month:"short", day:"2-digit"}).split(' ').join('. ').toLowerCase()}</span>
+                        </div>
+                    </li>
+                    <li class="py-2.5 border-b border-solid border-[#3c4144] tableauxvols-flightdetails-doorwrapper tableauxvols-flightdetails-infos-skin2">
+                        <span class="tableauxvols-flightdetails-icons icon icon-statusvol"></span>
+                        <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">Gate</div>
+                        <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
+                            <span class="tableauxvols-flightdetails-door">{flightGate}</span>
+                            <span class="icon icon-orientation tableauxvols-flightdetails-dooricon after:content-['\E00D']"></span>
+                        </div>
+                    </li>
+                    <li class="pt-2.5">
+                        <span class="tableauxvols-flightdetails-icons icon icon-infos"></span>
+                        <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">Status</div>
+                        <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
+                            <span class="tableauxvols-flightdetails-status tableauxvols-normal">{flightState}</span>
+                            <span class="tableauxvols-flightdetails-status"></span>
+                        </div>
+                    </li>
+                    <hr class="tableauxvols-flightdetails-splitter border-b border-solid border-[#60686d] my-5"/>
+                    <li class="tableauxvols-waiting-time">
+                        <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">Customs waiting time</div>
+                        <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
+                            N/A 
+                            <span class="tableauxvols-flightdetails-waitinglightbox text-xs font-normal">
+                                (<a href="#tableauxvols-overlay-douanes"
+                                    class="enhance enhance-magnificPopup-applied text-[#0abbff]"
+                                    data-enhance="magnificPopup"
+                                    data-magnific-popup-type="selector"
+                                    data-effect="mfp-zoom-in">
+                                    <span class="hidden">Customs waiting time</span> 
+                                    currently
+                                </a>)
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+{/if}
