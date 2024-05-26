@@ -14,7 +14,7 @@
     }
 
     /**
-     * @type {FlightBoard}
+     * @type {Webcam}
      */
     let webcam;
     let liveCam = false;
