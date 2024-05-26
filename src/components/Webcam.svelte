@@ -1,39 +1,66 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
-    let imageUrl = 'https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg';
-    let  random = new Date().getTime();
-    let delay = 0.5;
-    let counter = 0;
-    /**
-     * @type {HTMLImageElement}
-     */
-    let buffer; 
+    import toast from 'svelte-french-toast';
 
+    const IMAGE_URL = 'https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg';
+    const RANDOM = new Date().getTime();
+    const DELAY = 0.75; // Delay between loading images in seconds
+
+    let counter = 0;
+    let buffer: HTMLImageElement; 
+    let timeOut: number | null | undefined = null; // Holds timeout ID
+
+    /**
+     * Display webcam image from buffer
+     */
     function DisplayImage() { 
-        var img = document.querySelector('#webcam');
+        var img = (document.querySelector('#webcam') as HTMLImageElement);
         
         if(img){
-            // @ts-ignore
             img.src = buffer.src; 
             LoadNextImage(); 
         }
     } 
+
+    /**
+     * Load next webcam image to buffer
+     */
     function LoadBuffer () { 
-        var trickname = imageUrl; 
+        var trickname = IMAGE_URL; 
         ++counter; 
 
-        trickname += "?counter=" + (random + counter); 
+        trickname += "?counter=" + (RANDOM + counter); 
         buffer.src = trickname; 
         buffer.onload = DisplayImage; 
     } 
+
+    /**
+     * Trigger loading the next webcam image to buffer after time set by DELAY (s)
+     */
     function LoadNextImage() { 
-        setTimeout(LoadBuffer, 1000*delay); 
+        timeOut = setTimeout(LoadBuffer, 1000*DELAY); 
     } 
 
+    /**
+     * Force update webcam image when buffer stops loading (usually due to a sleeping tab)
+     */
+    export function forceUpdate() {
+        if(timeOut !== null) clearTimeout(timeOut);
+        toast.success('Webcam restarted!');
+        LoadNextImage();
+    }
+
+    /**
+     * Load first image on page load
+    */
     onMount(() => {
         buffer = new Image;
         LoadNextImage(); 
     });
+
+    /**
+     * State that determines if webcam uses image or livestream source
+     */
     export let live = false;
 </script>
 

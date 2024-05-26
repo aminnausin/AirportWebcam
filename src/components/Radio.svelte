@@ -5,6 +5,9 @@
 
     export let airport = {'code' : 'yul', 'icao' : 'CYUL', 'radio': '_twr2', 'location': 'Montreal, Quebec, Canada'};
 
+    /**
+     * Fetch METAR
+     */
     const initMetar = async () => {
         try {
             var myHeaders = new Headers();
@@ -20,6 +23,9 @@
         }
     }
 
+    /**
+     * Initialise Audio Peak Meter
+     */
     const initAudio = async () => {
         try {
             const {webAudioPeakMeter} = await import('$lib');
@@ -39,6 +45,9 @@
         }
     }
 
+    /**
+     * Initialise radio source
+     */
     const initRadio = async () => {
         try {
             radioSrc = `htps://s1-bos.liveatc.net/${airport.icao.toLocaleLowerCase()}${airport.radio}`;
@@ -56,7 +65,12 @@
         initRadio();
     });
 
-    function a(node, param) {
+    /**
+     * Trigger that loads METAR upon airport change
+     * @param node
+     * @param param Airport object holding ICAO codes
+     */
+    function metarTrigger(node, param) {
         initMetar();
         return {
             update(param) {
@@ -69,11 +83,11 @@
 
     let radioSrc = `https://s1-bos.liveatc.net/${airport.icao.toLocaleLowerCase()}${airport.radio}`;
 </script>
-<div class="flex gap-2 flex-col w-2/3 lg:w-full h-fit overflow-hidden">
+<div class="flex gap-2 flex-col w-full sm:w-2/3 lg:w-full h-fit overflow-hidden mb-12 sm:mb-0">
 
     <h3 class="text-base leading-[110%] font-light" style="font-family: Helvetica, sans-serif">You are listening to: <br>{airport.icao} Tower - {airport.location}</h3>
-    <h3 class="text-xs leading-[110%] font-mono font-light text-[#adadad]" use:a={airport}>{metar}</h3>
-    <audio id="player" class="my-2 w-full" crossorigin="anonymous" preload="metadata" src={`https://s1-bos.liveatc.net/${airport.icao.toLocaleLowerCase()}${airport.radio}`} controls={true} autoplay={false}></audio>
+    <h3 class="text-xs leading-[110%] font-mono font-light text-[#adadad]" use:metarTrigger={airport}>{metar}</h3>
+    <audio id="player" class="my-2 w-full" crossorigin="anonymous" preload="metadata" src={`https://s1-bos.liveatc.net/${airport.icao.toLocaleLowerCase()}${airport.radio}`} controls={true} autoplay={true}></audio>
     <div id="my-peak-meter" class="w-full h-12 my-4">
     </div>
 
