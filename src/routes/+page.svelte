@@ -46,7 +46,7 @@
                 <div class="flex gap-1">
                     <h6 class="w-full font-bold text-sm">
                         If the webcam isn't working, the source website may be down. 
-                        <a href="https://goowebcams.com/webcam/12861-montreal-dickie-moore-aeroport-international-pierreelliotttrudeau.html" class="text-[#0275c2]">
+                        <a href="https://goowebcams.com/webcam/12861-montreal-dickie-moore-aeroport-international-pierreelliotttrudeau.html" target="_blank" class="text-[#0275c2]">
                             Check Source
                         </a>
                         
