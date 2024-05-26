@@ -14,9 +14,9 @@
         AF: 'AFR',
         LH: 'DLH',
         AA: 'AAL',
-        "5T": 'AKT',
+        "5T": 'MPE',
         WS: 'WJA',
-        F8: 'FLE',
+        F8: 'FLAIR',
         PB: 'PVL',
         DL: 'DAL',
         UA: 'UAL',
@@ -31,7 +31,16 @@
         AH: 'DAH',
         PJ: 'SPM',
         OS: 'AUA',
-        LX: 'SHR'
+        LX: 'SHR',
+        YN: 'CRQ',
+        LX: 'SWR',
+        TK: 'turkish',
+        TP: 'TAP%20-%20Copy',
+        OS: 'Austria%20-%20Copy',
+        AV: 'AVA',
+        SY: 'SY',
+        RJ: 'RJA',
+        CM: 'copaairlines'
     }
 
     let flightStates = CONFIG.dataType == 'departures' ? {
@@ -68,9 +77,9 @@
         flightState = flightStates[flight['status']] ?? flight['status'];
         flightGate = CONFIG.dataType === 'departures' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
         
-        airlineLogo = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '';
-        airlineLogoAlt = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '';
-        airlineLogoAltAlt = airlineID.length == 3 ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : '';
+        airlineLogo = airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png` : '';
+        airlineLogoAlt = airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png` : '';
+        airlineLogoAltAlt = airlineID.length ? `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png` : '';
         flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
     }
         
