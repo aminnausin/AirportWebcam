@@ -83,6 +83,18 @@
     vertical-align: middle;
 }
 
+.icon-arrow-up:after {
+    content: '\E02B'
+}
+
+.icon-arrow-down:after {
+    content: '\E02C'
+}
+
+.icon-arrow-updown:after {
+    content: '\E05C'
+}
+
 a {
     color: #0275c2;
 }
