@@ -235,53 +235,65 @@
                     </a>
                 </div>
                 <ul class="tableauxvols-flightdetails-right w-full">
-                    <li class="py-2.5 border-b border-solid border-[#3c4144] tableauxvols-flightdetails-destination">
-                        <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">To</div>
-                        <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">{flightAirportLong}</div>
-                    </li>
-                    <li class="py-2.5 border-b border-solid border-[#3c4144] tableauxvols-flightdetails-hourswrapper">
-                        <span class="tableauxvols-flightdetails-icons icon icon-heures"></span>
-                        <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">
-                            Departure time
-                        </div>
-                        <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
-                            <span class="tableauxvols-flightdetails-hours tableauxvols-normal">{flightTime.slice(-5)}</span>
-                            <span class="tableauxvols-flightdetails-hoursrevised">{new Date(flightTime).toLocaleDateString('en-ca', {month:"short", day:"2-digit"}).split(' ').join('. ').toLowerCase()}</span>
-                        </div>
-                    </li>
-                    <li class="py-2.5 border-b border-solid border-[#3c4144] tableauxvols-flightdetails-doorwrapper tableauxvols-flightdetails-infos-skin2">
-                        <span class="tableauxvols-flightdetails-icons icon icon-statusvol"></span>
-                        <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">Gate</div>
-                        <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
-                            <span class="tableauxvols-flightdetails-door">{flightGate}</span>
-                            <span class="icon icon-orientation tableauxvols-flightdetails-dooricon after:content-['\E00D']"></span>
-                        </div>
-                    </li>
-                    <li class="pt-2.5">
-                        <span class="tableauxvols-flightdetails-icons icon icon-infos"></span>
-                        <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">Status</div>
-                        <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
-                            <span class="tableauxvols-flightdetails-status tableauxvols-normal">{flightState}</span>
-                            <span class="tableauxvols-flightdetails-status"></span>
-                        </div>
-                    </li>
-                    <hr class="tableauxvols-flightdetails-splitter border-b border-solid border-[#60686d] my-5"/>
-                    <li class="tableauxvols-waiting-time">
-                        <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">Customs waiting time</div>
-                        <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
-                            N/A 
-                            <span class="tableauxvols-flightdetails-waitinglightbox text-xs font-normal">
-                                (<a href="#tableauxvols-overlay-douanes"
-                                    class="enhance enhance-magnificPopup-applied text-[#0abbff]"
-                                    data-enhance="magnificPopup"
-                                    data-magnific-popup-type="selector"
-                                    data-effect="mfp-zoom-in">
+                    {#if CONFIG.dataType === 'departures'}
+                        <li class="py-2.5 border-b border-solid border-[#3c4144]">
+                            <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">To</div>
+                            <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">{flightAirportLong}</div>
+                        </li>
+                        <li class="py-2.5 border-b border-solid border-[#3c4144]">
+                            <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">
+                                Departure time
+                            </div>
+                            <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
+                                <span class="tableauxvols-flightdetails-hours tableauxvols-normal">{flightTime.slice(-5)}</span>
+                                <span class="tableauxvols-flightdetails-hoursrevised">{new Date(flightTime).toLocaleDateString('en-ca', {month:"short", day:"2-digit"}).split(' ').join('. ').toLowerCase()}</span>
+                            </div>
+                        </li>
+                        <li class="py-2.5 border-b border-solid border-[#3c4144]">
+                            <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">Gate</div>
+                            <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
+                                <span class="align-middle">{flightGate}</span>
+                                <span class="icon after:content-['\E00D']"></span>
+                            </div>
+                        </li>
+                        <li class="pt-2.5">
+                            <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">Status</div>
+                            <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
+                                <span>{flightState}</span>
+                            </div>
+                        </li>
+                        <hr class="border-b border-solid border-[#60686d] my-5"/>
+                        <li class="tableauxvols-waiting-time">
+                            <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">Customs waiting time</div>
+                            <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
+                                N/A 
+                                <span class="tableauxvols-flightdetails-waitinglightbox text-xs font-normal align-middle">
                                     <span class="hidden">Customs waiting time</span> 
-                                    currently
-                                </a>)
-                            </span>
-                        </div>
-                    </li>
+                                    (<span class="text-[#0abbff]">currently</span>)
+                                </span>
+                            </div>
+                        </li>
+                    {:else}
+                        <li class="py-2.5 border-b border-solid border-[#3c4144] pt-4">
+                            <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">From</div>
+                            <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">{flightAirportLong}</div>
+                        </li>
+                        <li class="py-2.5 border-b border-solid border-[#3c4144]">
+                            <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">
+                                Arrival time
+                            </div>
+                            <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
+                                <span class="tableauxvols-flightdetails-hours tableauxvols-normal">{flightTime.slice(-5)}</span>
+                                <span class="tableauxvols-flightdetails-hoursrevised">{new Date(flightTime).toLocaleDateString('en-ca', {month:"short", day:"2-digit"}).split(' ').join('. ').toLowerCase()}</span>
+                            </div>
+                        </li>
+                        <li class="pt-2.5">
+                            <div class="align-top text-left w-1/6 pr-2 md:w-52 md:pr-5 inline-block">Status</div>
+                            <div class="align-top text-left w-1/2 md:text-lg leading-none font-bold inline-block">
+                                <span>{flightState}</span>
+                            </div>
+                        </li>
+                    {/if}
                 </ul>
             </div>
         </td>
