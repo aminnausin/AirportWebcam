@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
     import toast from 'svelte-french-toast';
 
-    const IMAGE_URL = 'https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg';
+    const IMAGE_URL = 'https://goowebcams.com/stream/17623?sid=17&extra=/jpg/1/image.jpg';
     const RANDOM = new Date().getTime();
     const DELAY = 0.75; // Delay between loading images in seconds
 
