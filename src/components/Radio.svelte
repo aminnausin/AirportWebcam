@@ -87,7 +87,7 @@
 
     <h3 class="text-base leading-[110%] font-light" style="font-family: Helvetica, sans-serif">You are listening to: <br>{airport.icao} Tower - {airport.location}</h3>
     <h3 class="text-xs leading-[110%] font-mono font-light text-[#adadad]" use:metarTrigger={airport}>{metar}</h3>
-    <audio id="player" class="my-2 w-full" crossorigin="anonymous" preload="metadata" src={`https://s1-bos.liveatc.net/${airport.icao.toLocaleLowerCase()}${airport.radio}`} controls={true} autoplay={true}></audio>
+    <audio id="player" class="my-2 w-full bg-[rgb(241,243,244)] rounded-md" crossorigin="anonymous" preload="metadata" src={`https://s1-bos.liveatc.net/${airport.icao.toLocaleLowerCase()}${airport.radio}`} controls={true} autoplay={true}></audio>
     <div id="my-peak-meter" class="w-full h-12 my-4">
     </div>
 
