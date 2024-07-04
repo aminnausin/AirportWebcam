@@ -3,7 +3,7 @@
 
     export let CONFIG = {};
     export let flight = {};
-
+    export let logo = "";
     /**
      * Airline codes that connect flight numbers to corresponding keywords used by YUL to display airline logos
     */
@@ -66,13 +66,13 @@
     }
 
     /**
-     * Parse data components from raw flight data
+     * Parse data components from raw flight data and populate variables
      */
     function parseFlight() {
         flightTime = CONFIG.dataType === 'departures' ? flight['localisedScheduledDepartureTime'] : flight['localisedScheduledArrivalTime'];
         flightEstimatedTime = CONFIG.dataType === 'departures' ? flight['localisedEstimatedDepartureTime'] ?? '' : flight['localisedEstimatedArrivalTime'] ?? flightTime;
 
-        airlineID = AIRLINE_CODES[flight['airlineId']] ?? (AIRLINE_CODES[flight['flightNumber'].slice(0, 2)] ?? flight['airlineId']);
+        airlineID = flight['airlineId'];
         airlineCompany = flight['airlineName'];
 
         flightNumber = flight['flightNumber'];
@@ -81,18 +81,6 @@
         flightState = flightStates[flight['status']] ?? flight['status'];
         flightGate = CONFIG.dataType === 'departures' ? flight['boardingGate'] ?? '-' : flight['arrivalGate'] ?? '-';
         
-        // let airlineLogoSet = [
-        //     '403.png'
-        // ]
-        airlineLogoSet = [
-            `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png`,
-            `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png`,
-            `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png`,
-            `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png`,
-            `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png`,
-            `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png`,
-            `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png`,
-        ]
         flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
 
         airlineLogoIndex = 0;
@@ -113,12 +101,12 @@
         };
     }
 
-    // Flight Data
+    // Flight Data defaults
     
     let flightTime = CONFIG.dataType === 'departures' ? flight['localisedScheduledDepartureTime'] : flight['localisedScheduledArrivalTime'];
     let flightEstimatedTime = CONFIG.dataType === 'departures' ? flight['localisedEstimatedDepartureTime'] ?? '' : flight['localisedEstimatedArrivalTime'] ?? flightTime;
 
-    let airlineID = AIRLINE_CODES[flight['airlineId']] ?? (AIRLINE_CODES[flight['flightNumber']?.slice(0, 2)] ?? flight['airlineId']);
+    let airlineID = flight['airlineId'];
     let airlineCompany = flight['airlineName'];
 
     let flightNumber = flight['flightNumber'];
@@ -130,15 +118,16 @@
     // let airlineLogoSet = [
     //     '403.png'
     // ]
-    let airlineLogoSet = [
-        `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png`,
-        `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png`,
-        `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png`,
-        `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png`,
-        `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png`,
-        `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png`,
-        `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png`,
-    ]
+    // let airlineLogoSet = [
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS%402x_0.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}_FIDS2%402x_0.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}%402x_0.png`,
+    //     `https://www.admtl.com/sites/default/files/styles/reduced_for_retina/public/${airlineID}.png`,
+    // ]
+    
     let flightFollow = `https://www.admtl.com/en/flights/sms-service?vol=${flightNumber}`;
 
     let airlineLogoIndex = 0;
@@ -181,9 +170,11 @@
     <td class="tab-col3">
         <img 
             class="tableauxvols-flightdetails-logo-small object-contain" 
-            src="{airlineLogoSet[airlineLogoIndex]}" 
+            src="{logo}" 
             alt="{airlineCompany}" 
-            on:error={() => {airlineLogoIndex = airlineLogoIndex < airlineLogoSet.length - 1 ? airlineLogoIndex + 1 : airlineLogoIndex;}}>
+            on:error={() => {
+                //airlineLogoIndex = airlineLogoIndex < airlineLogoSet.length - 1 ? airlineLogoIndex + 1 : airlineLogoIndex;
+            }}>
         <span class="hidden text-for-search" aria-hidden="true">Company {airlineCompany} </span>
     </td>
     <td class="tab-col4 text-[#0abbff] font-bold">
@@ -229,9 +220,11 @@
                 <div class="tableauxvols-flightdetails-left w-1/6 pl-2 pr-3 md:w-48 md:pl-5 md:pr-7">
                     <img
                         class={`w-full h-12 object-contain object-center`}
-                        src="{airlineLogoSet[airlineLogoIndex]}" 
+                        src="{logo}" 
                         alt="{airlineCompany}" 
-                        on:error={() => {airlineLogoIndex = airlineLogoIndex < airlineLogoSet.length - 1 ? airlineLogoIndex + 1 : airlineLogoIndex;}}
+                        on:error={() => {
+                            // airlineLogoIndex = airlineLogoIndex < airlineLogoSet.length - 1 ? airlineLogoIndex + 1 : airlineLogoIndex;
+                            }}
                     />
                     <span class="tableauxvols-flightdetails-flight text-right block">Flight</span>
                     <span class="block text-right text-[1.4rem] md:text-[1.8rem] font-bold pb-8 text-[#0abbff]">{flightNumber}</span>
