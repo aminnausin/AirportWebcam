@@ -69,7 +69,7 @@
     <img id="webcam" src="https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg" onerror="this.src='assets/webcamDefault.jpg';" alt="live webcam" class="w-full">
 {:else}
     <iframe 
-        src="https://www.youtube.com/embed/AMwf1ZVbuPA?si=uPtYZXzA_zp2qqhU" 
+        src="https://www.youtube.com/embed/NTQhr9xDrKM?si=vcAOFpuc29KUc8yd" 
         title="YouTube video player" 
         frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
