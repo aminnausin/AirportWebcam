@@ -29,7 +29,12 @@
      */
     let webcam;
     let liveCam = false;
-    let airports = [{'code' : 'yul', 'icao' : 'CYUL', 'radio': '_twr2', 'location': 'Montreal, Quebec, Canada'}, {'code' : 'ytz', 'icao' : 'CYTZ', 'radio': '4', 'location': 'Toronto, Ontario, Canada'}];
+
+    let airports = [
+        {'code' : 'yul', 'icao' : 'CYUL', 'radio': '_twr', 'location': 'Montreal, Quebec, Canada'}, 
+        {'code' : 'ytz', 'icao' : 'CYTZ', 'radio': '4', 'location': 'Toronto, Ontario, Canada'}
+    ];
+
     let selectedAirport = airports[0] ?? null;
 </script>
 
