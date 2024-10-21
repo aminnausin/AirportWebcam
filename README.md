@@ -6,7 +6,7 @@ Combined Webcam, Radio and Arrival/Departures board for YUL ✈
 
 📷 - Webcam : goowebcams.com
 
-📻 - ATC Radio : liveatc.net
+📻 - ATC Radio : liveatc.net (BLOCKED forever by CORS 😭)
 
 ### Demo
 
