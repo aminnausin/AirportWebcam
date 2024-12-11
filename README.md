@@ -8,6 +8,8 @@ Combined Webcam, Radio and Arrival/Departures board for YUL ✈
 
 📻 - ATC Radio : liveatc.net (BLOCKED forever by CORS 😭)
 
+🎨 - Styling : A tailwind implementation of the (now discontinued/replaced) ]YUL airport flightboard](https://www.admtl.com/en-CA/flights/departures)
+
 ### Demo
 
 Screenshot of the current webpage on Desktop.
