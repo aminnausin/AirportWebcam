@@ -2,7 +2,7 @@
 Combined Webcam, Radio and Arrival/Departures board for YUL ✈
 
 ### Sources
-🛫 - Flight Information : skyscanner.ca
+🛫 - Flight Information : skyscanner.ca (Airline logos don't work because YUL updated their website and deleted all of them)
 
 📷 - Webcam : goowebcams.com
 
