@@ -1,5 +1,5 @@
 # AirportWebcam
-Combined Webcam, Radio and Arrival/Departures board for YUL ✈
+Combined Webcam, Radio and Arrival/Departures board for YUL and YTZ (no webcam) ✈
 
 ### Sources
 🛫 - Flight Information : skyscanner.ca (Airline logos don't work because YUL updated their website and deleted all of them)
