@@ -50,6 +50,11 @@
         LoadNextImage();
     }
 
+    const setDefaultImage = (event: {currentTarget: EventTarget & Element}) => {
+        const img = event.currentTarget as HTMLImageElement;
+        img.src='assets/webcamDefault.jpg'
+    }
+
     /**
      * Load first image on page load
     */
@@ -66,7 +71,7 @@
 
 
 {#if !live}
-    <img id="webcam" src="https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg" onerror="this.src='assets/webcamDefault.jpg';" alt="live webcam" class="w-full">
+    <img id="webcam" src="https://goowebcams.com/stream/12861?sid=17&extra=/jpg/1/image.jpg" onerror={setDefaultImage} alt="live webcam" class="w-full">
 {:else}
     <iframe 
         src="https://www.youtube.com/embed/NTQhr9xDrKM?si=vcAOFpuc29KUc8yd" 
